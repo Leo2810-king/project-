@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>🔐 WEB Mã Hóa AES-GCM - Bảo Mật Thông Tin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="card">
+        <h1>🔐 Mã Hóa (AES-GCM)</h1>
+        <p class="subtitle">Ứng dụng mã hóa văn bản và file sử dụng thuật toán AES-256-GCM</p>
+
+        <!-- Thanh tab điều hướng -->
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="encrypt">📝 Mã Hóa Văn Bản</button>
+                <button class="tab-btn" data-tab="decrypt">🔓 Giải Mã Văn Bản</button>
+                <button class="tab-btn" data-tab="file">📁 Mã Hóa File</button>
+                <button class="tab-btn" data-tab="info">ℹ️ Thông Tin</button>
+            </div>
+
+            <!-- Tab 1: Mã hóa văn bản -->
+            <div id="encrypt-tab" class="tab-content active">
+                <div class="section">
+                    <label for="inputText">📝 Văn bản cần mã hóa:</label>
+                    <textarea id="inputText" placeholder="Nhập nội dung cần mã hóa tại đây..." rows="6"></textarea>
+                    <div class="text-info">
+                        <span>Độ dài: <span id="inputLength">0</span> ký tự</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="password">🔑 Mật khẩu bảo mật:</label>
+                        <div class="password-container">
+                            <input id="password" type="password" placeholder="Nhập mật khẩu mạnh (tối thiểu 8 ký tự)" />
+                            <button type="button" class="password-toggle" id="togglePassword">👁️</button>
+                        </div>
+                        <!-- Thanh đánh giá độ mạnh mật khẩu -->
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <span id="strengthText">Nhập mật khẩu để kiểm tra độ mạnh</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="iterations">⚙️ Số lần lặp PBKDF2:</label>
+                        <input id="iterations" type="number" value="200000" min="10000" step="10000" />
+                        <small>Giá trị cao hơn = bảo mật hơn nhưng chậm hơn (khuyến nghị: 200,000)</small>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="encryptBtn" class="primary">🔒 Mã Hóa</button>
+                    <button id="decryptBtn" class="secondary">🔓 Giải Mã Ngược</button>
+                    <button id="copyBtn" class="success">📋 Copy Kết Quả</button>
+                    <button id="downloadBtn" class="info">💾 Tải Xuống</button>
+                    <button id="clearBtn" class="danger">🗑️ Xóa Tất Cả</button>
+                </div>
+
+                <div class="section">
+                    <label for="outputText">📤 Kết quả mã hóa (Base64):</label>
+                    <textarea id="outputText" rows="6" readonly placeholder="Kết quả mã hóa sẽ hiển thị tại đây..."></textarea>
+                    <div class="text-info">
+                        <span>Kích thước: <span id="outputSize">0</span> bytes</span>
+                        <span class="separator">•</span>
+                        <span>Tỷ lệ nén: <span id="compressionRatio">0%</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Giải mã văn bản -->
+            <div id="decrypt-tab" class="tab-content">
+                <div class="section">
+                    <label for="decryptInput">📥 Dữ liệu mã hóa (Base64):</label>
+                    <textarea id="decryptInput" placeholder="Dán dữ liệu đã mã hóa vào đây..." rows="6"></textarea>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p>Hoặc kéo thả file .txt chứa dữ liệu mã hóa vào đây</p>
+                        <input type="file" id="loadFileInput" accept=".txt" style="display: none;">
+                        <button type="button" id="loadFileBtn" class="upload-btn">Chọn File</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="decryptPassword">🔑 Mật khẩu giải mã:</label>
+                        <div class="password-container">
+                            <input id="decryptPassword" type="password" placeholder="Nhập mật khẩu đã dùng để mã hóa" />
+                            <button type="button" class="password-toggle" id="toggleDecryptPassword">👁️</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="decryptIterations">⚙️ Số lần lặp PBKDF2:</label>
+                        <input id="decryptIterations" type="number" value="200000" min="10000" step="10000" />
+                        <small>Phải trùng với giá trị đã dùng khi mã hóa</small>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="decryptOnlyBtn" class="primary">🔓 Giải Mã</button>
+                    <button id="copyDecryptBtn" class="success">📋 Copy Kết Quả</button>
+                    <button id="saveDecryptBtn" class="info">💾 Lưu Kết Quả</button>
+                </div>
+
+                <div class="section">
+                    <label for="decryptOutput">📝 Kết quả giải mã:</label>
+                    <textarea id="decryptOutput" rows="6" readonly placeholder="Văn bản gốc sẽ hiển thị tại đây sau khi giải mã..."></textarea>
+                    <div class="decrypt-status" id="decryptStatus" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Mã hóa file -->
+            <div id="file-tab" class="tab-content">
+                <div class="section">
+                    <label for="fileInput">📁 Chọn file cần mã hóa:</label>
+                    <div class="file-drop-area" id="fileDropArea">
+                        <div class="file-drop-icon">📄</div>
+                        <p>Kéo thả file vào đây hoặc click để chọn</p>
+                        <input type="file" id="fileInput" accept="*/*" />
+                        <button type="button" class="upload-btn">Chọn File</button>
+                    </div>
+
+                    <!-- Thông tin file đã chọn -->
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <h4>📋 Thông tin file:</h4>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Tên file:</span>
+                                <span class="info-value" id="fileName">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Kích thước:</span>
+                                <span class="info-value" id="fileSize">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Loại file:</span>
+                                <span class="info-value" id="fileType">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Sửa đổi lần cuối:</span>
+                                <span class="info-value" id="fileModified">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="filePassword">🔑 Mật khẩu mã hóa file:</label>
+                        <div class="password-container">
+                            <input id="filePassword" type="password" placeholder="Mật khẩu bảo vệ file" />
+                            <button type="button" class="password-toggle" id="toggleFilePassword">👁️</button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="fileIterations">⚙️ Số lần lặp PBKDF2:</label>
+                        <input id="fileIterations" type="number" value="200000" min="10000" step="10000" />
+                        <small>File lớn nên dùng giá trị thấp hơn (100,000 - 200,000)</small>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="encryptFileBtn" class="primary">🔒 Mã Hóa File</button>
+                    <button id="decryptFileBtn" class="secondary">🔓 Giải Mã File</button>
+                    <button id="clearFileBtn" class="danger">🗑️ Xóa</button>
+                </div>
+
+                <!-- Thanh tiến trình -->
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-info">
+                        <span id="progressLabel">Đang xử lý...</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span id="progressSpeed">-</span>
+                        <span class="separator">•</span>
+                        <span id="progressETA">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Thông tin -->
+            <div id="info-tab" class="tab-content">
+                <div class="info-section">
+                    <h3>🔐 Thuật Toán Mã Hóa</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Thuật toán chính:</span>
+                            <span class="info-value">AES-256-GCM</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Chế độ mã hóa:</span>
+                            <span class="info-value">Galois/Counter Mode</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Độ dài khóa:</span>
+                            <span class="info-value">256 bit (32 bytes)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Key Derivation:</span>
+                            <span class="info-value">PBKDF2-SHA256</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Salt Size:</span>
+                            <span class="info-value">128 bit (16 bytes)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">IV Size:</span>
+                            <span class="info-value">96 bit (12 bytes)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Authentication Tag:</span>
+                            <span class="info-value">128 bit (16 bytes)</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Iterations mặc định:</span>
+                            <span class="info-value">200,000 lần</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>🛡️ Tính Năng Bảo Mật</h3>
+                    <ul class="feature-list">
+                        <li><strong>Mã hóa đối xứng mạnh:</strong> AES-256 được NSA công nhận cho dữ liệu tối mật</li>
+                        <li><strong>Xác thực tính toàn vẹn:</strong> GCM mode tự động phát hiện dữ liệu bị thay đổi</li>
+                        <li><strong>Chống brute force:</strong> PBKDF2 với 200,000 iterations làm chậm tấn công</li>
+                        <li><strong>Chống rainbow table:</strong> Salt ngẫu nhiên 128-bit cho mỗi lần mã hóa</li>
+                        <li><strong>Ngẫu nhiên hóa:</strong> IV ngẫu nhiên đảm bảo cùng dữ liệu cho kết quả khác nhau</li>
+                        <li><strong>Không lưu trữ khóa:</strong> Khóa được tạo mới từ mật khẩu mỗi lần sử dụng</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h3>⚠️ Lưu Ý Quan Trọng</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Chỉ dùng cho học tập:</strong> Đây là demo giáo dục, không dùng cho dữ liệu thực tế quan trọng</li>
+                            <li><strong>Mật khẩu mạnh:</strong> Sử dụng mật khẩu dài, phức tạp với chữ hoa, thường, số và ký tự đặc biệt</li>
+                            <li><strong>Sao lưu an toàn:</strong> Luôn sao lưu dữ liệu gốc trước khi mã hóa</li>
+                            <li><strong>Nhớ mật khẩu:</strong> Không có cách nào khôi phục mật khẩu nếu quên</li>
+                            <li><strong>Kiểm tra kết quả:</strong> Luôn thử giải mã ngay sau khi mã hóa</li>
+                            <li><strong>Môi trường an toàn:</strong> Không sử dụng trên máy tính công cộng hoặc không tin cậy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>🎓 Kiến Thức Mở Rộng</h3>
+                    <div class="knowledge-grid">
+                        <div class="knowledge-item">
+                            <h4>AES (Advanced Encryption Standard)</h4>
+                            <p>Thuật toán mã hóa đối xứng được NIST chuẩn hóa năm 2001, thay thế DES. AES-256 sử dụng khóa 256-bit và được coi là an toàn trước cả máy tính lượng tử.</p>
+                        </div>
+                        <div class="knowledge-item">
+                            <h4>GCM (Galois/Counter Mode)</h4>
+                            <p>Chế độ hoạt động của AES cung cấp cả mã hóa và xác thực. GCM tạo ra authentication tag để đảm bảo dữ liệu không bị thay đổi.</p>
+                        </div>
+                        <div class="knowledge-item">
+                            <h4>PBKDF2 (Password-Based Key Derivation Function 2)</h4>
+                            <p>Hàm sinh khóa từ mật khẩu sử dụng nhiều vòng lặp hash để chống lại tấn công brute force. Càng nhiều iterations càng an toàn.</p>
+                        </div>
+                        <div class="knowledge-item">
+                            <h4>Salt và IV</h4>
+                            <p>Salt và IV (Initialization Vector) là các giá trị ngẫu nhiên đảm bảo cùng một mật khẩu/dữ liệu sẽ tạo ra kết quả mã hóa khác nhau mỗi lần.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông báo trạng thái -->
+        <div class="notification" id="notification" style="display: none;">
+            <span class="notification-text"></span>
+            <button class="notification-close">&times;</button>
+        </div>
+    </main>
+
+    <script>
+        // ===== CÁC HÀM HELPER =====
+
+        /**
+         * Chuyển đổi ArrayBuffer thành chuỗi Base64
+         * @param {ArrayBuffer} buffer - Buffer cần chuyển đổi
+         * @returns {string} Chuỗi Base64
+         */
+        function abToBase64(buffer) {
+            const bytes = new Uint8Array(buffer);
+            let binary = '';
+            const chunkSize = 0x8000; // Xử lý từng chunk 32KB để tránh stack overflow
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+            }
+            return btoa(binary);
+        }
+
+        /**
+         * Chuyển đổi chuỗi Base64 thành ArrayBuffer
+         * @param {string} base64 - Chuỗi Base64
+         * @returns {ArrayBuffer} Buffer dữ liệu
+         */
+        function base64ToAb(base64) {
+            const binary = atob(base64);
+            const len = binary.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        /**
+         * Kiểm tra độ mạnh của mật khẩu
+         * @param {string} password - Mật khẩu cần kiểm tra
+         * @returns {Object} Thông tin về độ mạnh mật khẩu
+         */
+        function checkPasswordStrength(password) {
+            let score = 0;
+            const feedback = [];
+
+            // Kiểm tra độ dài
+            if (password.length >= 8) score += 1;
+            else feedback.push('Ít nhất 8 ký tự');
+
+            // Kiểm tra chữ thường
+            if (/[a-z]/.test(password)) score += 1;
+            else feedback.push('Chữ thường (a-z)');
+
+            // Kiểm tra chữ hoa
+            if (/[A-Z]/.test(password)) score += 1;
+            else feedback.push('Chữ hoa (A-Z)');
+
+            // Kiểm tra số
+            if (/[0-9]/.test(password)) score += 1;
+            else feedback.push('Số (0-9)');
+
+            // Kiểm tra ký tự đặc biệt
+            if (/[^A-Za-z0-9]/.test(password)) score += 1;
+            else feedback.push('Ký tự đặc biệt (!@#$...)');
+
+            const levels = ['Rất yếu', 'Yếu', 'Trung bình', 'Mạnh', 'Rất mạnh'];
+            const colors = ['#ff4444', '#ff8800', '#ffaa00', '#88aa00', '#44aa44'];
+
+            return {
+                score,
+                level: levels[score] || 'Không xác định',
+                color: colors[score] || '#666666',
+                feedback: feedback,
+                percentage: (score / 5) * 100
+            };
+        }
+
+        /**
+         * Định dạng kích thước file
+         * @param {number} bytes - Số bytes
+         * @returns {string} Chuỗi định dạng (VD: "1.5 MB")
+         */
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        /**
+         * Định dạng thời gian
+         * @param {Date} date - Đối tượng Date
+         * @returns {string} Chuỗi thời gian định dạng
+         */
+        function formatDateTime(date) {
+            return date.toLocaleString('vi-VN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        // ===== CÁC HÀM MÃ HÓA =====
+
+        /**
+         * Tạo khóa AES-GCM từ mật khẩu sử dụng PBKDF2
+         * @param {string} password - Mật khẩu đầu vào
+         * @param {ArrayBuffer} salt - Salt ngẫu nhiên
+         * @param {number} iterations - Số lần lặp PBKDF2
+         * @param {number} keyLength - Độ dài khóa (bit)
+         * @returns {Promise<CryptoKey>} Khóa AES-GCM
+         */
+        async function deriveKey(password, salt, iterations = 200000, keyLength = 256) {
+            const enc = new TextEncoder();
+
+            // Import mật khẩu thành raw key
+            const passKey = await crypto.subtle.importKey(
+                'raw',
+                enc.encode(password),
+                'PBKDF2',
+                false, ['deriveKey']
+            );
+
+            // Derive khóa AES từ mật khẩu
+            return crypto.subtle.deriveKey({
+                    name: 'PBKDF2',
+                    salt: salt,
+                    iterations: iterations,
+                    hash: 'SHA-256'
+                },
+                passKey, {
+                    name: 'AES-GCM',
+                    length: keyLength
+                },
+                false, ['encrypt', 'decrypt']
+            );
+        }
+
+        /**
+         * Mã hóa văn bản thành Base64
+         * @param {string} plaintext - Văn bản gốc
+         * @param {string} password - Mật khẩu
+         * @param {number} iterations - Số lần lặp PBKDF2
+         * @returns {Promise<string>} Chuỗi Base64 chứa salt|iv|ciphertext
+         */
+        async function encryptText(plaintext, password, iterations) {
+            const enc = new TextEncoder();
+
+            // Tạo salt và IV ngẫu nhiên
+            const salt = crypto.getRandomValues(new Uint8Array(16)); // 128-bit salt
+            const iv = crypto.getRandomValues(new Uint8Array(12)); // 96-bit IV cho GCM
+
+            // Tạo khóa từ mật khẩu
+            const key = await deriveKey(password, salt.buffer, iterations);
+
+            // Mã hóa dữ liệu
+            const ciphertext = await crypto.subtle.encrypt({
+                    name: 'AES-GCM',
+                    iv: iv
+                },
+                key,
+                enc.encode(plaintext)
+            );
+
+            // Đóng gói: salt + iv + ciphertext
+            const packageSize = salt.byteLength + iv.byteLength + ciphertext.byteLength;
+            const packagedData = new Uint8Array(packageSize);
+
+            packagedData.set(salt, 0);
+            packagedData.set(iv, salt.byteLength);
+            packagedData.set(new Uint8Array(ciphertext), salt.byteLength + iv.byteLength);
+
+            return abToBase64(packagedData.buffer);
+        }
+
+        /**
+         * Giải mã dữ liệu Base64 thành văn bản
+         * @param {string} b64package - Dữ liệu Base64 chứa salt|iv|ciphertext
+         * @param {string} password - Mật khẩu
+         * @param {number} iterations - Số lần lặp PBKDF2
+         * @returns {Promise<string>} Văn bản gốc
+         */
+        async function decryptText(b64package, password, iterations) {
+            // Parse dữ liệu từ Base64
+            const packageAb = base64ToAb(b64package);
+            const packageBytes = new Uint8Array(packageAb);
+
+            // Kiểm tra độ dài tối thiểu (16 + 12 + 16 = 44 bytes)
+            if (packageBytes.length < 44) {
+                throw new Error('Dữ liệu không hợp lệ: quá ngắn (tối thiểu 44 bytes)');
+            }
+
+            // Tách các thành phần
+            const salt = packageBytes.slice(0, 16); // 16 bytes đầu
+            const iv = packageBytes.slice(16, 28); // 12 bytes tiếp theo
+            const ciphertext = packageBytes.slice(28); // Phần còn lại
+
+            // Tạo lại khóa từ mật khẩu và salt
+            const key = await deriveKey(password, salt.buffer, iterations);
+
+            // Giải mã
+            const decrypted = await crypto.subtle.decrypt({
+                    name: 'AES-GCM',
+                    iv: iv
+                },
+                key,
+                ciphertext.buffer
+            );
+
+            // Chuyển đổi về văn bản
+            const dec = new TextDecoder();
+            return dec.decode(decrypted);
+        }
+
+        /**
+         * Mã hóa file
+         * @param {ArrayBuffer} fileBuffer - Dữ liệu file
+         * @param {string} password - Mật khẩu
+         * @param {number} iterations - Số lần lặp PBKDF2
+         * @param {Function} onProgress - Callback báo tiến trình
+         * @returns {Promise<Uint8Array>} Dữ liệu file đã mã hóa
+         */
+        async function encryptFile(fileBuffer, password, iterations, onProgress) {
+            const salt = crypto.getRandomValues(new Uint8Array(16));
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+
+            if (onProgress) onProgress(25, 'Tạo khóa mã hóa...');
+
+            const key = await deriveKey(password, salt.buffer, iterations);
+
+            if (onProgress) onProgress(50, 'Đang mã hóa file...');
+
+            const ciphertext = await crypto.subtle.encrypt({
+                    name: 'AES-GCM',
+                    iv: iv
+                },
+                key,
+                fileBuffer
+            );
+
+            if (onProgress) onProgress(90, 'Hoàn tất đóng gói...');
+
+            // Đóng gói kết quả
+            const packageSize = salt.byteLength + iv.byteLength + ciphertext.byteLength;
+            const packagedData = new Uint8Array(packageSize);
+
+            packagedData.set(salt, 0);
+            packagedData.set(iv, salt.byteLength);
+            packagedData.set(new Uint8Array(ciphertext), salt.byteLength + iv.byteLength);
+
+            if (onProgress) onProgress(100, 'Hoàn thành!');
+
+            return packagedData;
+        }
+
+        // ===== QUẢN LÝ GIAO DIỆN =====
+
+        /**
+         * Hiển thị thông báo
+         * @param {string} message - Nội dung thông báo
+         * @param {string} type - Loại thông báo (success, error, warning, info)
+         * @param {number} duration - Thời gian hiển thị (ms)
+         */
+        function showNotification(message, type = 'info', duration = 5000) {
+            const notification = document.getElementById('notification');
+            const notificationText = notification.querySelector('.notification-text');
+
+            notificationText.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'flex';
+
+            // Tự động ẩn sau duration
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, duration);
+        }
+
+        /**
+         * Cập nhật thanh tiến trình
+         * @param {number} percent - Phần trăm hoàn thành
+         * @param {string} label - Nhãn mô tả
+         * @param {string} speed - Tốc độ xử lý
+         * @param {string} eta - Thời gian còn lại
+         */
+        function updateProgress(percent, label = '', speed = '', eta = '') {
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressLabel = document.getElementById('progressLabel');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressSpeed = document.getElementById('progressSpeed');
+            const progressETA = document.getElementById('progressETA');
+
+            progressFill.style.width = percent + '%';
+            progressPercent.textContent = Math.round(percent) + '%';
+
+            if (label) progressLabel.textContent = label;
+            if (speed) progressSpeed.textContent = speed;
+            if (eta) progressETA.textContent = eta;
+
+            if (percent > 0) {
+                progressContainer.style.display = 'block';
+            }
+
+            if (percent >= 100) {
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                }, 1000);
+            }
+        }
+
+        // ===== KHỞI TẠO GIAO DIỆN =====
+
+        // Lấy tất cả các phần tử DOM
+        const elements = {
+            // Tab controls
+            tabBtns: document.querySelectorAll('.tab-btn'),
+            tabContents: document.querySelectorAll('.tab-content'),
+
+            // Encrypt tab elements
+            inputText: document.getElementById('inputText'),
+            password: document.getElementById('password'),
+            iterations: document.getElementById('iterations'),
+            encryptBtn: document.getElementById('encryptBtn'),
+            decryptBtn: document.getElementById('decryptBtn'),
+            outputText: document.getElementById('outputText'),
+            copyBtn: document.getElementById('copyBtn'),
+            downloadBtn: document.getElementById('downloadBtn'),
+            clearBtn: document.getElementById('clearBtn'),
+            togglePassword: document.getElementById('togglePassword'),
+            strengthFill: document.getElementById('strengthFill'),
+            strengthText: document.getElementById('strengthText'),
+            inputLength: document.getElementById('inputLength'),
+            outputSize: document.getElementById('outputSize'),
+            compressionRatio: document.getElementById('compressionRatio'),
+
+            // Decrypt tab elements
+            decryptInput: document.getElementById('decryptInput'),
+            decryptPassword: document.getElementById('decryptPassword'),
+            decryptIterations: document.getElementById('decryptIterations'),
+            decryptOnlyBtn: document.getElementById('decryptOnlyBtn'),
+            decryptOutput: document.getElementById('decryptOutput'),
+            copyDecryptBtn: document.getElementById('copyDecryptBtn'),
+            saveDecryptBtn: document.getElementById('saveDecryptBtn'),
+            toggleDecryptPassword: document.getElementById('toggleDecryptPassword'),
+            loadFileInput: document.getElementById('loadFileInput'),
+            loadFileBtn: document.getElementById('loadFileBtn'),
+            uploadArea: document.getElementById('uploadArea'),
+            decryptStatus: document.getElementById('decryptStatus'),
+
+            // File tab elements
+            fileInput: document.getElementById('fileInput'),
+            fileDropArea: document.getElementById('fileDropArea'),
+            fileInfo: document.getElementById('fileInfo'),
+            fileName: document.getElementById('fileName'),
+            fileSize: document.getElementById('fileSize'),
+            fileType: document.getElementById('fileType'),
+            fileModified: document.getElementById('fileModified'),
+            filePassword: document.getElementById('filePassword'),
+            fileIterations: document.getElementById('fileIterations'),
+            encryptFileBtn: document.getElementById('encryptFileBtn'),
+            decryptFileBtn: document.getElementById('decryptFileBtn'),
+            clearFileBtn: document.getElementById('clearFileBtn'),
+            toggleFilePassword: document.getElementById('toggleFilePassword'),
+
+            // Notification
+            notification: document.getElementById('notification'),
+            notificationClose: document.querySelector('.notification-close')
+        };
+
+        // ===== XỬ LÝ SỰ KIỆN =====
+
+        // Chuyển đổi tab
+        elements.tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+
+                // Xóa class active từ tất cả tab
+                elements.tabBtns.forEach(b => b.classList.remove('active'));
+                elements.tabContents.forEach(c => c.classList.remove('active'));
+
+                // Thêm class active cho tab được chọn
+                btn.classList.add('active');
+                document.getElementById(tabId + '-tab').classList.add('active');
+            });
+        });
+
+        // Hiện/ẩn mật khẩu
+        function setupPasswordToggle(toggleBtn, passwordInput) {
+            toggleBtn.addEventListener('click', () => {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                toggleBtn.textContent = type === 'password' ? '👁️' : '🙈';
+            });
+        }
+
+        setupPasswordToggle(elements.togglePassword, elements.password);
+        setupPasswordToggle(elements.toggleDecryptPassword, elements.decryptPassword);
+        setupPasswordToggle(elements.toggleFilePassword, elements.filePassword);
+
+        // Kiểm tra độ mạnh mật khẩu
+        elements.password.addEventListener('input', (e) => {
+            const password = e.target.value;
+            elements.inputLength.textContent = elements.inputText.value.length;
+
+            if (!password) {
+                elements.strengthFill.style.width = '0%';
+                elements.strengthText.textContent = 'Nhập mật khẩu để kiểm tra độ mạnh';
+                return;
+            }
+
+            const result = checkPasswordStrength(password);
+            elements.strengthFill.style.width = result.percentage + '%';
+            elements.strengthFill.style.backgroundColor = result.color;
+
+            let text = `${result.level} (${Math.round(result.percentage)}%)`;
+            if (result.feedback.length > 0) {
+                text += ` - Thiếu: ${result.feedback.join(', ')}`;
+            }
+            elements.strengthText.textContent = text;
+        });
+
+        // Cập nhật độ dài văn bản
+        elements.inputText.addEventListener('input', () => {
+            elements.inputLength.textContent = elements.inputText.value.length;
+        });
+
+        // Cập nhật kích thước output
+        elements.outputText.addEventListener('input', () => {
+            const outputLength = elements.outputText.value.length;
+            const inputLength = elements.inputText.value.length;
+
+            elements.outputSize.textContent = outputLength;
+
+            if (inputLength > 0) {
+                const ratio = ((outputLength - inputLength) / inputLength * 100).toFixed(1);
+                elements.compressionRatio.textContent = ratio + '%';
+            } else {
+                elements.compressionRatio.textContent = '0%';
+            }
+        });
+
+        // Xử lý file input
+        elements.fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                displayFileInfo(file);
+            } else {
+                elements.fileInfo.style.display = 'none';
+            }
+        });
+
+        // Xử lý drag & drop cho file
+        elements.fileDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            elements.fileDropArea.classList.add('dragover');
+        });
+
+        elements.fileDropArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            elements.fileDropArea.classList.remove('dragover');
+        });
+
+        elements.fileDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            elements.fileDropArea.classList.remove('dragover');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                elements.fileInput.files = files;
+                displayFileInfo(files[0]);
+            }
+        });
+
+        // Xử lý drag & drop cho decrypt
+        elements.uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            elements.uploadArea.classList.add('dragover');
+        });
+
+        elements.uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            elements.uploadArea.classList.remove('dragover');
+        });
+
+        elements.uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            elements.uploadArea.classList.remove('dragover');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].name.endsWith('.txt')) {
+                loadTextFile(files[0]);
+            }
+        });
+
+        // Load file button
+        elements.loadFileBtn.addEventListener('click', () => {
+            elements.loadFileInput.click();
+        });
+
+        elements.loadFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                loadTextFile(file);
+            }
+        });
+
+        /**
+         * Hiển thị thông tin file
+         * @param {File} file - Đối tượng file
+         */
+        function displayFileInfo(file) {
+            elements.fileName.textContent = file.name;
+            elements.fileSize.textContent = formatFileSize(file.size);
+            elements.fileType.textContent = file.type || 'Không xác định';
+            elements.fileModified.textContent = formatDateTime(new Date(file.lastModified));
+            elements.fileInfo.style.display = 'block';
+        }
+
+        /**
+         * Tải nội dung file text
+         * @param {File} file - File text
+         */
+        function loadTextFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                elements.decryptInput.value = e.target.result;
+                showNotification(`Đã tải file: ${file.name}`, 'success');
+            };
+            reader.onerror = () => {
+                showNotification('Lỗi khi đọc file', 'error');
+            };
+            reader.readAsText(file);
+        }
+
+        // ===== XỬ LÝ CÁC CHỨC NĂNG CHÍNH =====
+
+        // Mã hóa văn bản
+        elements.encryptBtn.addEventListener('click', async() => {
+            const text = elements.inputText.value.trim();
+            const password = elements.password.value;
+            const iterations = parseInt(elements.iterations.value) || 200000;
+
+            // Validation
+            if (!text) {
+                showNotification('Vui lòng nhập văn bản cần mã hóa', 'warning');
+                return;
+            }
+            if (!password) {
+                showNotification('Vui lòng nhập mật khẩu bảo mật', 'warning');
+                return;
+            }
+            if (password.length < 6) {
+                showNotification('Mật khẩu phải có ít nhất 6 ký tự', 'warning');
+                return;
+            }
+
+            try {
+                elements.encryptBtn.disabled = true;
+                elements.encryptBtn.textContent = '🔄 Đang mã hóa...';
+
+                const encrypted = await encryptText(text, password, iterations);
+                elements.outputText.value = encrypted;
+
+                showNotification('✅ Mã hóa thành công!', 'success');
+            } catch (error) {
+                console.error('Encryption error:', error);
+                showNotification('❌ Lỗi mã hóa: ' + error.message, 'error');
+            } finally {
+                elements.encryptBtn.disabled = false;
+                elements.encryptBtn.textContent = '🔒 Mã Hóa';
+            }
+        });
+
+        // Giải mã văn bản (tab encrypt)
+        elements.decryptBtn.addEventListener('click', async() => {
+            const encryptedData = elements.outputText.value.trim();
+            const password = elements.password.value;
+            const iterations = parseInt(elements.iterations.value) || 200000;
+
+            if (!encryptedData) {
+                showNotification('Không có dữ liệu mã hóa để giải mã', 'warning');
+                return;
+            }
+            if (!password) {
+                showNotification('Vui lòng nhập mật khẩu', 'warning');
+                return;
+            }
+
+            try {
+                elements.decryptBtn.disabled = true;
+                elements.decryptBtn.textContent = '🔄 Đang giải mã...';
+
+                const decrypted = await decryptText(encryptedData, password, iterations);
+                elements.inputText.value = decrypted;
+
+                showNotification('✅ Giải mã thành công!', 'success');
+            } catch (error) {
+                console.error('Decryption error:', error);
+                showNotification('❌ Giải mã thất bại: Sai mật khẩu hoặc dữ liệu bị lỗi', 'error');
+            } finally {
+                elements.decryptBtn.disabled = false;
+                elements.decryptBtn.textContent = '🔓 Giải Mã Ngược';
+            }
+        });
+
+        // Giải mã văn bản (tab decrypt)
+        elements.decryptOnlyBtn.addEventListener('click', async() => {
+            const encryptedData = elements.decryptInput.value.trim();
+            const password = elements.decryptPassword.value;
+            const iterations = parseInt(elements.decryptIterations.value) || 200000;
+
+            if (!encryptedData) {
+                showNotification('Vui lòng nhập dữ liệu mã hóa', 'warning');
+                return;
+            }
+            if (!password) {
+                showNotification('Vui lòng nhập mật khẩu', 'warning');
+                return;
+            }
+
+            try {
+                elements.decryptOnlyBtn.disabled = true;
+                elements.decryptOnlyBtn.textContent = '🔄 Đang giải mã...';
+
+                const decrypted = await decryptText(encryptedData, password, iterations);
+                elements.decryptOutput.value = decrypted;
+
+                elements.decryptStatus.innerHTML = '<span class="success">✅ Giải mã thành công!</span>';
+                elements.decryptStatus.style.display = 'block';
+
+                showNotification('✅ Giải mã thành công!', 'success');
+            } catch (error) {
+                console.error('Decryption error:', error);
+                elements.decryptStatus.innerHTML = '<span class="error">❌ Giải mã thất bại: Sai mật khẩu hoặc dữ liệu bị lỗi</span>';
+                elements.decryptStatus.style.display = 'block';
+                showNotification('❌ Giải mã thất bại: Sai mật khẩu hoặc dữ liệu bị lỗi', 'error');
+            } finally {
+                elements.decryptOnlyBtn.disabled = false;
+                elements.decryptOnlyBtn.textContent = '🔓 Giải Mã';
+            }
+        });
+
+        // Copy kết quả
+        elements.copyBtn.addEventListener('click', () => {
+            const text = elements.outputText.value;
+            if (!text) {
+                showNotification('Không có dữ liệu để copy', 'warning');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('📋 Đã copy vào clipboard!', 'success');
+            }).catch(() => {
+                showNotification('❌ Không thể copy vào clipboard', 'error');
+            });
+        });
+
+        elements.copyDecryptBtn.addEventListener('click', () => {
+            const text = elements.decryptOutput.value;
+            if (!text) {
+                showNotification('Không có dữ liệu để copy', 'warning');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('📋 Đã copy vào clipboard!', 'success');
+            }).catch(() => {
+                showNotification('❌ Không thể copy vào clipboard', 'error');
+            });
+        });
+
+        // Download file
+        elements.downloadBtn.addEventListener('click', () => {
+            const data = elements.outputText.value;
+            if (!data) {
+                showNotification('Không có dữ liệu để tải xuống', 'warning');
+                return;
+            }
+
+            const blob = new Blob([data], {
+                type: 'text/plain;charset=utf-8'
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'encrypted_data.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showNotification('💾 Đã tải xuống file!', 'success');
+        });
+
+        elements.saveDecryptBtn.addEventListener('click', () => {
+            const data = elements.decryptOutput.value;
+            if (!data) {
+                showNotification('Không có dữ liệu để lưu', 'warning');
+                return;
+            }
+
+            const blob = new Blob([data], {
+                type: 'text/plain;charset=utf-8'
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'decrypted_data.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showNotification('💾 Đã lưu file!', 'success');
+        });
+
+        // Mã hóa file
+        elements.encryptFileBtn.addEventListener('click', async() => {
+            const file = elements.fileInput.files[0];
+            const password = elements.filePassword.value;
+            const iterations = parseInt(elements.fileIterations.value) || 200000;
+
+            if (!file) {
+                showNotification('Vui lòng chọn file cần mã hóa', 'warning');
+                return;
+            }
+            if (!password) {
+                showNotification('Vui lòng nhập mật khẩu', 'warning');
+                return;
+            }
+
+            try {
+                elements.encryptFileBtn.disabled = true;
+                elements.encryptFileBtn.textContent = '🔄 Đang mã hóa...';
+
+                updateProgress(0, 'Đọc file...');
+
+                const fileBuffer = await file.arrayBuffer();
+                const encrypted = await encryptFile(fileBuffer, password, iterations, (percent, label) => {
+                    updateProgress(percent, label);
+                });
+
+                // Tạo file mã hóa để download
+                const blob = new Blob([encrypted], {
+                    type: 'application/octet-stream'
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = file.name + '.encrypted';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showNotification(`✅ Mã hóa file thành công! Đã tải xuống: ${file.name}.encrypted`, 'success');
+            } catch (error) {
+                console.error('File encryption error:', error);
+                showNotification('❌ Lỗi mã hóa file: ' + error.message, 'error');
+            } finally {
+                elements.encryptFileBtn.disabled = false;
+                elements.encryptFileBtn.textContent = '🔒 Mã Hóa File';
+                updateProgress(0);
+            }
+        });
+
+        // Xóa dữ liệu
+        elements.clearBtn.addEventListener('click', () => {
+            if (confirm('Bạn có chắc chắn muốn xóa tất cả dữ liệu?')) {
+                elements.inputText.value = '';
+                elements.outputText.value = '';
+                elements.password.value = '';
+                elements.strengthFill.style.width = '0%';
+                elements.strengthText.textContent = 'Nhập mật khẩu để kiểm tra độ mạnh';
+                elements.inputLength.textContent = '0';
+                elements.outputSize.textContent = '0';
+                elements.compressionRatio.textContent = '0%';
+                showNotification('🗑️ Đã xóa tất cả dữ liệu', 'info');
+            }
+        });
+
+        elements.clearFileBtn.addEventListener('click', () => {
+            if (confirm('Bạn có chắc chắn muốn xóa thông tin file?')) {
+                elements.fileInput.value = '';
+                elements.filePassword.value = '';
+                elements.fileInfo.style.display = 'none';
+                showNotification('🗑️ Đã xóa thông tin file', 'info');
+            }
+        });
+
+        // Đóng thông báo
+        elements.notificationClose.addEventListener('click', () => {
+            elements.notification.style.display = 'none';
+        });
+
+        // Khởi tạo ban đầu
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔐 Ứng dụng mã hóa AES-GCM đã sẵn sàng!');
+            showNotification('🔐 Ứng dụng mã hóa AES-GCM đã sẵn sàng!', 'info', 3000);
+        });
+    </script>
+</body>
+
+</html>

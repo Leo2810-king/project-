@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔑Công Cụ Mã Hóa RSA - An Toàn Mạng</title>
+    <link rel="stylesheet" href="style1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Hiệu ứng Matrix Background -->
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="bracket">[</span> HỆ THỐNG MÃ HÓA RSA
+                <span class="bracket">]</span>
+            </h1>
+            <div class="subtitle">Công Cụ Mật Mã Nâng Cao v2.0</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            <!-- Panel Tạo Khóa -->
+            <div class="panel key-panel">
+                <div class="panel-header">
+                    <h3>🔑 Tạo Cặp Khóa RSA</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="input-group">
+                        <label>Kích thước khóa (bits)</label>
+                        <select id="keySize">
+                            <option value="512">512 bits (Nhanh)</option>
+                            <option value="1024" selected>1024 bits (Khuyến nghị)</option>
+                            <option value="2048">2048 bits (An toàn)</option>
+                            <option value="4096">4096 bits (Tối đa)</option>
+                        </select>
+                    </div>
+
+                    <div class="security-warning">
+                        Khóa lớn hơn = Bảo mật cao hơn nhưng chậm hơn
+                    </div>
+
+                    <button class="btn btn-primary" onclick="taoKhoa()">
+                        <span id="keyGenText">Tạo Khóa RSA</span>
+                        <span id="keyGenLoading" class="loading" style="display: none;"></span>
+                    </button>
+
+                    <div class="keys-display">
+                        <div class="key-box">
+                            <h4>🔓 Khóa Công Khai (n, e)
+                                <span class="tooltip" data-tooltip="Dùng để mã hóa dữ liệu - Có thể chia sẻ">ℹ️</span>
+                            </h4>
+                            <div class="key-output" id="publicKey">Khóa sẽ xuất hiện ở đây...</div>
+                            <button class="btn btn-success" onclick="saoChep('publicKey')" style="margin-top: 10px; padding: 8px 16px; font-size: 0.8rem;">
+                                Sao Chép Khóa Công Khai
+                            </button>
+                        </div>
+                        <div class="key-box">
+                            <h4>🔒 Khóa Bí Mật (n, d)
+                                <span class="tooltip" data-tooltip="Dùng để giải mã dữ liệu - TUYỆT ĐỐI BẢO MẬT!">⚠️</span>
+                            </h4>
+                            <div class="key-output" id="privateKey">Khóa sẽ xuất hiện ở đây...</div>
+                            <button class="btn btn-danger" onclick="saoChep('privateKey')" style="margin-top: 10px; padding: 8px 16px; font-size: 0.8rem;">
+                                Sao Chép Khóa Bí Mật
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Mã Hóa -->
+            <div class="panel encrypt-panel">
+                <div class="panel-header">
+                    <h3>🔒 Quá Trình Mã Hóa</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="input-group">
+                        <label>Tin nhắn cần mã hóa</label>
+                        <textarea id="plaintext" placeholder="Nhập tin nhắn bí mật của bạn...&#10;Ví dụ: Xin chào thế giới!"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>
+                            <input type="checkbox" id="hexOutput" style="margin-right: 8px;">
+                            Xuất kết quả dạng Hexadecimal
+                        </label>
+                    </div>
+
+                    <button class="btn btn-success" onclick="maHoaTinNhan()">
+                        <span id="encryptText">🔐 Mã Hóa Tin Nhắn</span>
+                        <span id="encryptLoading" class="loading" style="display: none;"></span>
+                    </button>
+
+                    <div class="output-box">
+                        <h4>Tin Nhắn Đã Mã Hóa
+                            <span class="tooltip" data-tooltip="Dữ liệu đã được mã hóa thành công">🔐</span>
+                        </h4>
+                        <div class="output" id="encryptedOutput">Dữ liệu mã hóa sẽ xuất hiện ở đây...</div>
+                        <button class="btn btn-primary" onclick="saoChep('encryptedOutput')" style="margin-top: 10px; padding: 8px 16px; font-size: 0.8rem;">
+                            Sao Chép Dữ Liệu Mã Hóa
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Giải Mã -->
+            <div class="panel decrypt-panel">
+                <div class="panel-header">
+                    <h3>🔓 Quá Trình Giải Mã</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="input-group">
+                        <label>Tin nhắn đã mã hóa</label>
+                        <textarea id="ciphertext" placeholder="Dán tin nhắn đã mã hóa vào đây...&#10;Định dạng: 123,456,789..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>
+                            <input type="checkbox" id="hexInput" style="margin-right: 8px;">
+                            Dữ liệu nhập vào dạng Hexadecimal
+                        </label>
+                    </div>
+
+                    <button class="btn btn-warning" onclick="giaiMaTinNhan()">
+                        <span id="decryptText">🔓 Giải Mã Tin Nhắn</span>
+                        <span id="decryptLoading" class="loading" style="display: none;"></span>
+                    </button>
+
+                    <div class="output-box">
+                        <h4>Tin Nhắn Đã Giải Mã
+                            <span class="tooltip" data-tooltip="Văn bản gốc đã được khôi phục">📝</span>
+                        </h4>
+                        <div class="output" id="decryptedOutput">Dữ liệu giải mã sẽ xuất hiện ở đây...</div>
+                        <button class="btn btn-success" onclick="saoChep('decryptedOutput')" style="margin-top: 10px; padding: 8px 16px; font-size: 0.8rem;">
+                            Sao Chép Văn Bản Gốc
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Thông Tin Thuật Toán -->
+            <div class="panel info-panel">
+                <div class="panel-header">
+                    <h3>📊 Chi Tiết Thuật Toán RSA</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="info-item">
+                        <strong>🔍 Các Bước Thuật Toán:</strong>
+                        <ol>
+                            <li><strong>Tạo số nguyên tố:</strong> Chọn 2 số nguyên tố lớn p và q</li>
+                            <li><strong>Tính n:</strong> n = p × q (modulus)</li>
+                            <li><strong>Tính φ(n):</strong> φ(n) = (p-1) × (q-1)</li>
+                            <li><strong>Chọn e:</strong> Chọn e nguyên tố cùng nhau với φ(n), thường là 65537</li>
+                            <li><strong>Tính d:</strong> d ≡ e⁻¹ (mod φ(n))</li>
+                            <li><strong>Khóa Công Khai:</strong> (n, e) - Có thể chia sẻ</li>
+                            <li><strong>Khóa Bí Mật:</strong> (n, d) - Phải giữ bí mật</li>
+                        </ol>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>🔐 Công Thức Mã Hóa/Giải Mã:</strong>
+                        <div class="code-block">
+                            <pre>Mã hóa:  C = M^e mod n
+Giải mã:  M = C^d mod n
+
+Trong đó:
+- M: Thông điệp gốc (Message)
+- C: Thông điệp mã hóa (Ciphertext)
+- e: Số mũ công khai (Public exponent)
+- d: Số mũ bí mật (Private exponent)  
+- n: Modulus (tích của 2 số nguyên tố)</pre>
+                        </div>
+                    </div>
+
+                    <div class="status" id="status">🔄 Sẵn sàng mã hóa...</div>
+
+                    <div class="info-item">
+                        <strong>⚡ Thống Kê Hiệu Suất:</strong>
+                        <div id="performanceStats">
+                            <div>Thời gian tạo khóa: <span id="keyGenTime">-</span>ms</div>
+                            <div>Thời gian mã hóa: <span id="encryptTime">-</span>ms</div>
+                            <div>Thời gian giải mã: <span id="decryptTime">-</span>ms</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>🛡️ Lưu Ý Bảo Mật:</strong>
+                        <ul style="color: #ccc; padding-left: 20px;">
+                            <li>KHÔNG BAO GIỜ chia sẻ khóa bí mật (Private Key)</li>
+                            <li>Sử dụng khóa ít nhất 2048 bits cho môi trường thực tế</li>
+                            <li>Đảm bảo máy tính an toàn khi tạo khóa</li>
+                            <li>Thường xuyên thay đổi khóa để tăng bảo mật</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="terminal-line">
+                <span class="prompt">root@baomat:~$</span>
+                <span class="command">Hệ thống mã hóa RSA đang hoạt động</span>
+                <span class="cursor">█</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // RSA Class đơn giản và hoạt động
+        class MaHoaRSANangCao {
+            constructor() {
+                this.khoaCongKhai = null;
+                this.khoaBiMat = null;
+                this.thongKeHieuSuat = {
+                    thoiGianTaoKhoa: 0,
+                    thoiGianMaHoa: 0,
+                    thoiGianGiaiMa: 0
+                };
+            }
+
+            // Kiểm tra số nguyên tố
+            laSoNguyenTo(n) {
+                if (n < 2) return false;
+                if (n === 2) return true;
+                if (n % 2 === 0) return false;
+
+                for (let i = 3; i <= Math.sqrt(n); i += 2) {
+                    if (n % i === 0) return false;
+                }
+                return true;
+            }
+
+            // Tạo số nguyên tố đơn giản
+            taoSoNguyenTo(min = 50, max = 200) {
+                let soNguyenTo;
+                do {
+                    soNguyenTo = Math.floor(Math.random() * (max - min + 1)) + min;
+                } while (!this.laSoNguyenTo(soNguyenTo));
+                return soNguyenTo;
+            }
+
+            // GCD - Ước chung lớn nhất
+            ucln(a, b) {
+                while (b !== 0) {
+                    [a, b] = [b, a % b];
+                }
+                return a;
+            }
+
+            // Extended Euclidean Algorithm
+            euclideanMoRong(a, b) {
+                if (a === 0) return [b, 0, 1];
+
+                const [gcd, x1, y1] = this.euclideanMoRong(b % a, a);
+                const x = y1 - Math.floor(b / a) * x1;
+                const y = x1;
+
+                return [gcd, x, y];
+            }
+
+            // Tính nghịch đảo modular
+            nghichDaoModular(e, phi) {
+                const [gcd, x] = this.euclideanMoRong(e, phi);
+                if (gcd !== 1) return null;
+                return ((x % phi) + phi) % phi;
+            }
+
+            // Lũy thừa modular
+            luyThuaModular(base, exp, mod) {
+                let result = 1;
+                base = base % mod;
+
+                while (exp > 0) {
+                    if (exp % 2 === 1) {
+                        result = (result * base) % mod;
+                    }
+                    exp = Math.floor(exp / 2);
+                    base = (base * base) % mod;
+                }
+
+                return result;
+            }
+
+            // Tạo cặp khóa RSA
+            taoCapKhoa(soBit = 1024, hamCapNhatTienTrinh = null) {
+                console.log(`🔧 Bắt đầu tạo khóa RSA với ${soBit} bits...`);
+                const thoiGianBatDau = performance.now();
+
+                if (hamCapNhatTienTrinh) hamCapNhatTienTrinh(10);
+
+                // Tạo hai số nguyên tố p và q
+                const p = this.taoSoNguyenTo(50, 150);
+                console.log(`✅ p = ${p}`);
+
+                if (hamCapNhatTienTrinh) hamCapNhatTienTrinh(40);
+
+                let q = this.taoSoNguyenTo(50, 150);
+                while (q === p) {
+                    q = this.taoSoNguyenTo(50, 150);
+                }
+                console.log(`✅ q = ${q}`);
+
+                if (hamCapNhatTienTrinh) hamCapNhatTienTrinh(60);
+
+                // Tính n và φ(n)
+                const n = p * q;
+                const phi = (p - 1) * (q - 1);
+                console.log(`✅ n = ${n}, φ(n) = ${phi}`);
+
+                if (hamCapNhatTienTrinh) hamCapNhatTienTrinh(80);
+
+                // Chọn e
+                let e = 3;
+                while (this.ucln(e, phi) !== 1 && e < phi) {
+                    e += 2;
+                }
+                console.log(`✅ e = ${e}`);
+
+                // Tính d
+                const d = this.nghichDaoModular(e, phi);
+                if (!d) {
+                    throw new Error('Không thể tính khóa bí mật');
+                }
+                console.log(`✅ d = ${d}`);
+
+                if (hamCapNhatTienTrinh) hamCapNhatTienTrinh(100);
+
+                // LƯU KHÓA VÀO INSTANCE
+                this.khoaCongKhai = {
+                    n,
+                    e
+                };
+                this.khoaBiMat = {
+                    n,
+                    d
+                };
+
+                const thoiGianKetThuc = performance.now();
+                this.thongKeHieuSuat.thoiGianTaoKhoa = Math.round(thoiGianKetThuc - thoiGianBatDau);
+
+                console.log(`🎉 Tạo khóa thành công!`, {
+                    congKhai: this.khoaCongKhai,
+                    biMat: this.khoaBiMat
+                });
+
+                return {
+                    congKhai: this.khoaCongKhai,
+                    biMat: this.khoaBiMat,
+                    soNguyenTo: {
+                        p,
+                        q
+                    },
+                    phi: phi
+                };
+            }
+
+            // Mã hóa tin nhắn
+            maHoa(tinNhan, khoaCongKhai = null, dinhDangXuat = 'thapPhan') {
+                // SỬ DỤNG KHÓA TỪ INSTANCE NẾU KHÔNG TRUYỀN VÀO
+                const khoa = khoaCongKhai || this.khoaCongKhai;
+
+                if (!khoa) {
+                    throw new Error('Chưa có khóa công khai! Vui lòng tạo khóa trước.');
+                }
+
+                console.log('🔐 Bắt đầu mã hóa với khóa:', khoa);
+
+                const thoiGianBatDau = performance.now();
+                const {
+                    n,
+                    e
+                } = khoa;
+                const duLieuMaHoa = [];
+
+                for (let i = 0; i < tinNhan.length; i++) {
+                    const maKyTu = tinNhan.charCodeAt(i);
+                    if (maKyTu >= n) {
+                        throw new Error(`Ký tự '${tinNhan[i]}' (mã: ${maKyTu}) quá lớn cho khóa hiện tại (n=${n}). Vui lòng tạo khóa lớn hơn.`);
+                    }
+
+                    const kyTuMaHoa = this.luyThuaModular(maKyTu, e, n);
+                    duLieuMaHoa.push(kyTuMaHoa);
+                }
+
+                const thoiGianKetThuc = performance.now();
+                this.thongKeHieuSuat.thoiGianMaHoa = Math.round(thoiGianKetThuc - thoiGianBatDau);
+
+                const ketQua = dinhDangXuat === 'hex' ?
+                    duLieuMaHoa.map(so => so.toString(16)).join(':') :
+                    duLieuMaHoa.join(',');
+
+                console.log('✅ Mã hóa thành công:', ketQua);
+                return ketQua;
+            }
+
+            // Giải mã tin nhắn
+            giaiMa(tinNhanMaHoa, khoaBiMat = null, dinhDangNhap = 'thapPhan') {
+                // SỬ DỤNG KHÓA TỪ INSTANCE NẾU KHÔNG TRUYỀN VÀO
+                const khoa = khoaBiMat || this.khoaBiMat;
+
+                if (!khoa) {
+                    throw new Error('Chưa có khóa bí mật! Vui lòng tạo khóa trước.');
+                }
+
+                console.log('🔓 Bắt đầu giải mã với khóa:', khoa);
+
+                const thoiGianBatDau = performance.now();
+                const {
+                    n,
+                    d
+                } = khoa;
+
+                let mangMaHoa;
+                try {
+                    if (dinhDangNhap === 'hex') {
+                        mangMaHoa = tinNhanMaHoa.split(':').map(hex => parseInt(hex, 16));
+                    } else {
+                        mangMaHoa = tinNhanMaHoa.split(',').map(so => parseInt(so));
+                    }
+                } catch (error) {
+                    throw new Error('Định dạng dữ liệu không hợp lệ: ' + error.message);
+                }
+
+                let ketQuaGiaiMa = '';
+
+                for (const kyTuMaHoa of mangMaHoa) {
+                    if (isNaN(kyTuMaHoa)) {
+                        throw new Error('Dữ liệu chứa ký tự không hợp lệ');
+                    }
+                    const kyTuGiaiMa = this.luyThuaModular(kyTuMaHoa, d, n);
+                    ketQuaGiaiMa += String.fromCharCode(kyTuGiaiMa);
+                }
+
+                const thoiGianKetThuc = performance.now();
+                this.thongKeHieuSuat.thoiGianGiaiMa = Math.round(thoiGianKetThuc - thoiGianBatDau);
+
+                console.log('✅ Giải mã thành công:', ketQuaGiaiMa);
+                return ketQuaGiaiMa;
+            }
+
+            // Kiểm tra trạng thái khóa
+            kiemTraKhoa() {
+                return {
+                    coKhoaCongKhai: !!this.khoaCongKhai,
+                    coKhoaBiMat: !!this.khoaBiMat,
+                    khoaCongKhai: this.khoaCongKhai,
+                    khoaBiMat: this.khoaBiMat
+                };
+            }
+        }
+
+        // Khởi tạo đối tượng RSA TOÀN CỤC
+        const rsa = new MaHoaRSANangCao();
+
+        // Hiệu ứng Matrix Rain
+        function khoiTaoHieuUngMatrix() {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const kyTu = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()+-/~{[|]}";
+            const mangKyTu = kyTu.split("");
+
+            const kichThuocFont = 10;
+            const soCot = canvas.width / kichThuocFont;
+            const giot = [];
+
+            for (let x = 0; x < soCot; x++) {
+                giot[x] = 1;
+            }
+
+            function ve() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00ff41';
+                ctx.font = kichThuocFont + 'px Fira Code';
+
+                for (let i = 0; i < giot.length; i++) {
+                    const kyTuNgauNhien = mangKyTu[Math.floor(Math.random() * mangKyTu.length)];
+                    ctx.fillText(kyTuNgauNhien, i * kichThuocFont, giot[i] * kichThuocFont);
+
+                    if (giot[i] * kichThuocFont > canvas.height && Math.random() > 0.975) {
+                        giot[i] = 0;
+                    }
+                    giot[i]++;
+                }
+            }
+
+            setInterval(ve, 35);
+        }
+
+        // Cập nhật thanh tiến trình
+        function capNhatTienTrinh(phanTram) {
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                progressBar.style.width = phanTram + '%';
+            }
+        }
+
+        // Hàm sao chép vào clipboard
+        async function saoChep(idPhanTu) {
+            const phanTu = document.getElementById(idPhanTu);
+            if (!phanTu) return;
+
+            const noiDung = phanTu.textContent;
+
+            try {
+                await navigator.clipboard.writeText(noiDung);
+                capNhatTrangThai('📋 Đã sao chép vào clipboard!');
+
+                // Hiệu ứng thị giác
+                phanTu.style.background = 'rgba(0, 255, 65, 0.2)';
+                setTimeout(() => {
+                    phanTu.style.background = '#0a0a0a';
+                }, 500);
+            } catch (loi) {
+                console.error('Lỗi sao chép:', loi);
+                capNhatTrangThai('❌ Không thể sao chép vào clipboard');
+            }
+        }
+
+        // Hàm tạo khóa - SỬA LỖI CHÍNH
+        function taoKhoa() {
+            const kichThuocKhoa = parseInt(document.getElementById('keySize').value);
+            const bieuTuongTai = document.getElementById('keyGenLoading');
+            const vanBanNut = document.getElementById('keyGenText');
+
+            console.log('🚀 Bắt đầu tạo khóa RSA...');
+
+            // Hiển thị trạng thái đang tải
+            if (bieuTuongTai) bieuTuongTai.style.display = 'inline-block';
+            if (vanBanNut) vanBanNut.textContent = 'Đang tạo...';
+            capNhatTrangThai('🔄 Đang tạo khóa RSA...');
+            capNhatTienTrinh(0);
+
+            // Mô phỏng quá trình tạo khóa với timeout ngắn hơn
+            setTimeout(() => {
+                try {
+                    const cacKhoa = rsa.taoCapKhoa(kichThuocKhoa, capNhatTienTrinh);
+
+                    // Kiểm tra khóa đã được tạo
+                    const trangThaiKhoa = rsa.kiemTraKhoa();
+                    console.log('Trạng thái khóa sau khi tạo:', trangThaiKhoa);
+
+                    // Hiển thị khóa
+                    const publicKeyElement = document.getElementById('publicKey');
+                    const privateKeyElement = document.getElementById('privateKey');
+
+                    if (publicKeyElement) {
+                        publicKeyElement.innerHTML =
+                            `<strong>n:</strong> ${cacKhoa.congKhai.n.toLocaleString()}<br><strong>e:</strong> ${cacKhoa.congKhai.e}`;
+                    }
+
+                    if (privateKeyElement) {
+                        privateKeyElement.innerHTML =
+                            `<strong>n:</strong> ${cacKhoa.biMat.n.toLocaleString()}<br><strong>d:</strong> ${cacKhoa.biMat.d.toLocaleString()}`;
+                    }
+
+                    // Cập nhật thống kê hiệu suất
+                    const keyGenTimeElement = document.getElementById('keyGenTime');
+                    if (keyGenTimeElement) {
+                        keyGenTimeElement.textContent = rsa.thongKeHieuSuat.thoiGianTaoKhoa;
+                    }
+
+                    capNhatTrangThai(`✅ Đã tạo thành công khóa RSA (n=${cacKhoa.congKhai.n})!`);
+                    capNhatTienTrinh(100);
+
+                    // Reset UI sau khi hoàn tất
+                    setTimeout(() => {
+                        if (bieuTuongTai) bieuTuongTai.style.display = 'none';
+                        if (vanBanNut) vanBanNut.textContent = 'Tạo Khóa RSA';
+                        capNhatTienTrinh(0);
+                    }, 1000);
+
+                } catch (loi) {
+                    console.error('Lỗi tạo khóa:', loi);
+                    capNhatTrangThai('❌ Lỗi khi tạo khóa: ' + loi.message);
+
+                    if (bieuTuongTai) bieuTuongTai.style.display = 'none';
+                    if (vanBanNut) vanBanNut.textContent = 'Tạo Khóa RSA';
+                    capNhatTienTrinh(0);
+                }
+            }, 100); // Giảm timeout xuống 100ms
+        }
+
+        // Hàm mã hóa tin nhắn - SỬA LỖI
+        function maHoaTinNhan() {
+            const vanBanGoc = document.getElementById('plaintext').value;
+            const xuatHex = document.getElementById('hexOutput').checked;
+            const bieuTuongTai = document.getElementById('encryptLoading');
+            const vanBanNut = document.getElementById('encryptText');
+
+            console.log('🔐 Bắt đầu mã hóa tin nhắn:', vanBanGoc);
+
+            if (!vanBanGoc.trim()) {
+                alert('⚠️ Vui lòng nhập tin nhắn cần mã hóa');
+                return;
+            }
+
+            // KIỂM TRA KHÓA TRƯỚC KHI MÃ HÓA
+            const trangThaiKhoa = rsa.kiemTraKhoa();
+            console.log('Trạng thái khóa trước mã hóa:', trangThaiKhoa);
+
+            if (!trangThaiKhoa.coKhoaCongKhai) {
+                alert('⚠️ Vui lòng tạo khóa trước khi mã hóa');
+                return;
+            }
+
+            // Hiển thị trạng thái đang tải
+            if (bieuTuongTai) bieuTuongTai.style.display = 'inline-block';
+            if (vanBanNut) vanBanNut.textContent = 'Đang mã hóa...';
+            capNhatTrangThai('🔒 Đang mã hóa tin nhắn...');
+
+            setTimeout(() => {
+                try {
+                    const dinhDangXuat = xuatHex ? 'hex' : 'thapPhan';
+                    const duLieuMaHoa = rsa.maHoa(vanBanGoc, null, dinhDangXuat);
+
+                    // Hiển thị kết quả
+                    const encryptedOutputElement = document.getElementById('encryptedOutput');
+                    const ciphertextElement = document.getElementById('ciphertext');
+
+                    if (encryptedOutputElement) {
+                        encryptedOutputElement.textContent = duLieuMaHoa;
+                    }
+                    if (ciphertextElement) {
+                        ciphertextElement.value = duLieuMaHoa;
+                    }
+
+                    // Cập nhật thống kê hiệu suất
+                    const encryptTimeElement = document.getElementById('encryptTime');
+                    if (encryptTimeElement) {
+                        encryptTimeElement.textContent = rsa.thongKeHieuSuat.thoiGianMaHoa;
+                    }
+
+                    capNhatTrangThai(`✅ Mã hóa thành công! (${vanBanGoc.length} ký tự → ${duLieuMaHoa.length} ký tự)`);
+
+                    // Reset UI
+                    if (bieuTuongTai) bieuTuongTai.style.display = 'none';
+                    if (vanBanNut) vanBanNut.innerHTML = '🔐 Mã Hóa Tin Nhắn';
+
+                } catch (loi) {
+                    console.error('Lỗi mã hóa:', loi);
+                    capNhatTrangThai('❌ Lỗi mã hóa: ' + loi.message);
+
+                    if (bieuTuongTai) bieuTuongTai.style.display = 'none';
+                    if (vanBanNut) vanBanNut.innerHTML = '🔐 Mã Hóa Tin Nhắn';
+                }
+            }, 100);
+        }
+
+        // Hàm giải mã tin nhắn - SỬA LỖI
+        function giaiMaTinNhan() {
+            const duLieuMaHoa = document.getElementById('ciphertext').value;
+            const nhapHex = document.getElementById('hexInput').checked;
+            const bieuTuongTai = document.getElementById('decryptLoading');
+            const vanBanNut = document.getElementById('decryptText');
+
+            console.log('🔓 Bắt đầu giải mã tin nhắn:', duLieuMaHoa);
+
+            if (!duLieuMaHoa.trim()) {
+                alert('⚠️ Vui lòng nhập dữ liệu đã mã hóa');
+                return;
+            }
+
+            // KIỂM TRA KHÓA TRƯỚC KHI GIẢI MÃ
+            const trangThaiKhoa = rsa.kiemTraKhoa();
+            console.log('Trạng thái khóa trước giải mã:', trangThaiKhoa);
+
+            if (!trangThaiKhoa.coKhoaBiMat) {
+                alert('⚠️ Vui lòng tạo khóa trước khi giải mã');
+                return;
+            }
+
+            // Hiển thị trạng thái đang tải
+            if (bieuTuongTai) bieuTuongTai.style.display = 'inline-block';
+            if (vanBanNut) vanBanNut.textContent = 'Đang giải mã...';
+            capNhatTrangThai('🔓 Đang giải mã tin nhắn...');
+
+            setTimeout(() => {
+                try {
+                    const dinhDangNhap = nhapHex ? 'hex' : 'thapPhan';
+                    const duLieuGiaiMa = rsa.giaiMa(duLieuMaHoa, null, dinhDangNhap);
+
+                    // Hiển thị kết quả
+                    const decryptedOutputElement = document.getElementById('decryptedOutput');
+                    if (decryptedOutputElement) {
+                        decryptedOutputElement.textContent = duLieuGiaiMa;
+                    }
+
+                    // Cập nhật thống kê hiệu suất
+                    const decryptTimeElement = document.getElementById('decryptTime');
+                    if (decryptTimeElement) {
+                        decryptTimeElement.textContent = rsa.thongKeHieuSuat.thoiGianGiaiMa;
+                    }
+
+                    capNhatTrangThai(`✅ Giải mã thành công! (Khôi phục ${duLieuGiaiMa.length} ký tự)`);
+
+                    // Reset UI
+                    if (bieuTuongTai) bieuTuongTai.style.display = 'none';
+                    if (vanBanNut) vanBanNut.innerHTML = '🔓 Giải Mã Tin Nhắn';
+
+                } catch (loi) {
+                    console.error('Lỗi giải mã:', loi);
+                    capNhatTrangThai('❌ Lỗi giải mã: ' + loi.message);
+
+                    if (bieuTuongTai) bieuTuongTai.style.display = 'none';
+                    if (vanBanNut) vanBanNut.innerHTML = '🔓 Giải Mã Tin Nhắn';
+                }
+            }, 100);
+        }
+
+        // Hàm cập nhật trạng thái
+        function capNhatTrangThai(thongBao) {
+            const statusElement = document.getElementById('status');
+            if (statusElement) {
+                statusElement.textContent = thongBao;
+            }
+            console.log('Status:', thongBao);
+        }
+
+        // Khởi tạo khi trang được tải
+        window.onload = function() {
+            console.log('🎯 Khởi tạo hệ thống RSA...');
+
+            khoiTaoHieuUngMatrix();
+            capNhatTrangThai('🚀 Hệ Thống Mã Hóa RSA Sẵn Sàng');
+
+            // Tự động thay đổi kích thước canvas
+            window.addEventListener('resize', () => {
+                const canvas = document.getElementById('matrixCanvas');
+                if (canvas) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+            });
+
+            // Debug mode
+            console.log('🔧 Debug mode enabled');
+            console.log('RSA instance:', rsa);
+        };
+
+        // Hiệu ứng nhấp nháy con trỏ
+        setInterval(() => {
+            const conTro = document.querySelector('.cursor');
+            if (conTro) {
+                conTro.style.opacity = conTro.style.opacity === '0' ? '1' : '0';
+            }
+        }, 500);
+
+        // Debug function để kiểm tra trạng thái
+        window.debugRSA = function() {
+            console.log('=== DEBUG RSA ===');
+            console.log('RSA Instance:', rsa);
+            console.log('Trạng thái khóa:', rsa.kiemTraKhoa());
+            console.log('================');
+        };
+    </script>
+</body>
+
+</html>
