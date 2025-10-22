@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo King - Portfolio (Fixed)</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="../CSS/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --primary-color: #00ff41;
+            --secondary-color: #0F3460;
+            --background-dark: #0a0a0a;
+            --text-white: #ffffff;
+            --text-cyan: #00ffff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--background-dark) 0%, #1a1a2e 50%, #16213e 100%);
+            color: var(--text-white);
+            font-family: 'Fira Code', monospace;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .password-content {
+            background: var(--secondary-color);
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .password-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .password-content p {
+            color: var(--text-cyan);
+            margin-bottom: 25px;
+        }
+        
+        #password-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            color: var(--text-white);
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        #password-input:focus {
+            outline: none;
+            border-color: var(--text-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--text-cyan));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.4);
+        }
+        
+        .error-message {
+            margin-top: 15px;
+            color: #ff4757;
+            font-size: 14px;
+            min-height: 20px;
+        }
+        
+        .main-content {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .main-content.hidden {
+            display: none !important;
+        }
+        
+        .hero-section {
+            padding: 80px 0;
+        }
+        
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--primary-color);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-cyan);
+            margin-bottom: 40px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: var(--secondary-color);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: var(--text-white);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .feature-card p {
+            color: var(--text-cyan);
+            line-height: 1.6;
+        }
+        
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            75% {
+                transform: translateX(5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Password Modal -->
+    <div id="password-modal" class="password-modal">
+        <div class="password-content">
+            <h3><i class="fas fa-lock"></i> Bảo mật truy cập</h3>
+            <p>Vui lòng nhập mật khẩu để truy cập:</p>
+            <input type="password" id="password-input" placeholder="Nhập mật khẩu..." maxlength="20">
+            <button id="login-btn" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+            </button>
+            <div class="error-message" id="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content hidden">
+        <div class="status-indicator">
+            <i class="fas fa-circle"></i> ONLINE
+        </div>
+
+        <div class="container">
+            <div class="hero-section">
+                <h1 class="hero-title">LEO KING</h1>
+                <p class="hero-subtitle">Elite Penetration Tester & Full-Stack Developer</p>
+                <p>🎉 <strong>Trang web đã hoạt động thành công!</strong></p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Cybersecurity</h3>
+                        <p>Chuyên gia bảo mật với kinh nghiệm penetration testing và ethical hacking</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Full-Stack Development</h3>
+                        <p>Phát triển ứng dụng web hiện đại với các công nghệ tiên tiến</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI & Innovation</h3>
+                        <p>Nghiên cứu và ứng dụng trí tuệ nhân tạo vào các dự án thực tế</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 50px; padding: 20px; background: var(--secondary-color); border-radius: 12px; border: 2px solid var(--primary-color);">
+                    <h3 style="color: var(--primary-color);">✅ Test Hoàn Thành</h3>
+                    <p>Trang web của bạn đã hoạt động bình thường!</p>
+
+                    <button onclick="goToOriginal()" style="margin-top: 15px; padding: 10px 20px; background: var(--primary-color); color: #000; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                        🚀 Vào Trang Chính
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PASSWORD = 'leohieu2810';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Website loaded successfully!');
+
+            const passwordModal = document.getElementById('password-modal');
+            const mainContent = document.getElementById('main-content');
+            const passwordInput = document.getElementById('password-input');
+            const loginBtn = document.getElementById('login-btn');
+            const errorMessage = document.getElementById('error-message');
+
+            function checkLogin() {
+                const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+                if (isLoggedIn === 'true') {
+                    showMainContent();
+                } else {
+                    showPasswordModal();
+                }
+            }
+
+            function showPasswordModal() {
+                passwordModal.style.display = 'flex';
+                mainContent.classList.add('hidden');
+                passwordInput.focus();
+            }
+
+            function showMainContent() {
+                passwordModal.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                console.log('✅ Login successful!');
+            }
+
+            function validatePassword() {
+                const enteredPassword = passwordInput.value.trim();
+
+                if (enteredPassword === PASSWORD) {
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    showMainContent();
+                    errorMessage.textContent = '';
+                } else {
+                    errorMessage.textContent = 'Sai mật khẩu! Thử lại sau';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    passwordInput.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        passwordInput.style.animation = '';
+                    }, 500);
+                }
+            }
+
+            loginBtn.addEventListener('click', validatePassword);
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    validatePassword();
+                }
+            });
+
+            checkLogin();
+        });
+
+        function goToOriginal() {
+            sessionStorage.setItem('isLoggedIn', 'true');
+            window.location.href = 'GioiThieuCaNhan.html';
+        }
+    </script>
+</body>
+
+</html>

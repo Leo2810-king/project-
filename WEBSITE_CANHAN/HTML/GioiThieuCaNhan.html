@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu Cá Nhân - Hacker Style</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="../CSS/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../CSS/style.css" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Password Login Modal -->
+    <div id="password-modal" class="password-modal">
+        <div class="password-content">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-title">secure_access@leo:~</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="login-form">
+                        <h3><i class="fas fa-lock"></i> Bảo mật truy cập</h3>
+                        <p>Vui lòng nhập mật khẩu để truy cập trang web:</p>
+                        <div class="input-group">
+                            <i class="fas fa-key"></i>
+                            <input type="password" id="password-input" placeholder="Nhập mật khẩu..." maxlength="20">
+                        </div>
+                        <button id="login-btn" class="login-btn">
+                            <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                        </button>
+                        <div class="error-message" id="error-message"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden initially) -->
+    <div id="main-content" class="main-content hidden">
+        <!-- Hacker Loading Screen -->
+        <div id="loading-screen">
+            <div class="loading-container">
+                <div class="loading-terminal">
+                    <div class="loading-header">
+                        <span class="loading-title">INITIALIZING SYSTEM...</span>
+                    </div>
+                    <div class="loading-content">
+                        <div class="loading-line">
+                            <span class="loading-prompt">[SYSTEM]</span>
+                            <span class="loading-text">Connecting to secure server...</span>
+                            <span class="loading-status success">[OK]</span>
+                        </div>
+                        <div class="loading-line">
+                            <span class="loading-prompt">[AUTH]</span>
+                            <span class="loading-text">Authenticating user credentials...</span>
+                            <span class="loading-status success">[OK]</span>
+                        </div>
+                        <div class="loading-line">
+                            <span class="loading-prompt">[DECRYPT]</span>
+                            <span class="loading-text">Decrypting portfolio data...</span>
+                            <span class="loading-status success">[OK]</span>
+                        </div>
+                        <div class="loading-line">
+                            <span class="loading-prompt">[RENDER]</span>
+                            <span class="loading-text">Rendering interface...</span>
+                            <span class="loading-status pending">[...]</span>
+                        </div>
+                    </div>
+                    <div class="loading-progress">
+                        <div class="progress-bar-loading"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Particle Effects -->
+        <div id="particles-container"></div>
+
+        <!-- Matrix Rain Background -->
+        <div id="matrix-bg"></div>
+
+        <!-- Glitch Effects -->
+        <div class="glitch-overlay"></div>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand terminal-text" href="#">
+                    <div class="brand-logo">
+                        <div class="personal-logo">
+                            <span class="logo-text">LK</span>
+                            <div class="logo-circuit"></div>
+                        </div>
+                        <i class="fas fa-terminal"></i>
+                        <span class="brand-text">Leo<span class="brand-highlight">_King</span></span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">
+                                <i class="fas fa-home"></i> ./home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">
+                                <i class="fas fa-user-secret"></i> ./about
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#skills">
+                                <i class="fas fa-code"></i> ./skills
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#hobbies">
+                                <i class="fas fa-heart"></i> ./hobbies
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">
+                                <i class="fas fa-envelope"></i> ./contact
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tech Stack Icons -->
+                    <div class="tech-stack-nav">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" class="tech-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="tech-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-icon">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node" class="tech-icon">
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <!-- Main Logo Section -->
+                <div class="row justify-content-center mb-5">
+                    <div class="col-12 text-center">
+                        <div class="main-brand-logo">
+                            <div class="logo-container">
+                                <div class="giant-logo">
+                                    <img src="../IMG/Logo.jpg" alt="Leo King" class="giant-profile-image">
+                                    <div class="logo-circuit-lines"></div>
+                                    <div class="logo-particles"></div>
+                                </div>
+                                <h1 class="brand-name glitch-text">LEO KING</h1>
+                                <p class="brand-tagline cyber-text">Full Stack Developer | Ethical Hacker | Tech Innovator</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Introduction Section -->
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-6">
+                        <div class="terminal-window">
+                            <div class="terminal-header">
+                                <div class="terminal-buttons">
+                                    <span class="btn-close"></span>
+                                    <span class="btn-minimize"></span>
+                                    <span class="btn-maximize"></span>
+                                </div>
+                                <div class="terminal-title">introduction@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="terminal-line">
+                                    <span class="prompt">leo@portfolio:~$</span>
+                                    <span class="command typing-animation" data-text="cat about_me.txt">cat about_me.txt</span>
+                                </div>
+                                <div class="terminal-output fade-in-output">
+                                    <p class="cyber-text">
+                                        Xin chào! Tôi là Leo King - một Full Stack Developer với niềm đam mê bất tận dành cho công nghệ và bảo mật thông tin. Tôi luôn tìm kiếm những thách thức mới và không ngừng học hỏi để hoàn thiện bản thân.
+                                    </p>
+                                    <p class="cyber-text">
+                                        Với kinh nghiệm trong phát triển ứng dụng web, mobile và nghiên cứu về cybersecurity, tôi mang đến những giải pháp sáng tạo và bảo mật cho mọi dự án.
+                                    </p>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="prompt">leo@portfolio:~$</span>
+                                    <span class="command cursor-blink"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="profile-image-container">
+                            <div class="profile-gallery">
+                                <!-- Main Profile Image -->
+                                <div class="hexagon-frame main-profile">
+                                    <img src="../IMG/AnhDaiDien.jpg" alt="Leo King Profile" class="profile-image active" id="mainProfileImg">
+                                    <div class="scan-line"></div>
+                                    <!-- Status Badges -->
+                                    <div class="status-badges">
+                                        <div class="badge online">
+                                            <i class="fas fa-circle"></i> ONLINE
+                                        </div>
+                                        <div class="badge verified">
+                                            <i class="fas fa-shield-check"></i> VERIFIED
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Additional Profile Images -->
+                                <div class="profile-thumbnails">
+                                    <div class="profile-thumb active" onclick="changeProfileImage('../IMG/AnhDaiDien.jpg')">
+                                        <img src="../IMG/AnhDaiDien.jpg" alt="Profile 1">
+                                    </div>
+                                    <div class="profile-thumb" onclick="changeProfileImage('../IMG/CN1.jpg')">
+                                        <img src="../IMG/CN1.jpg" alt="Profile 2">
+                                    </div>
+                                    <div class="profile-thumb" onclick="changeProfileImage('../IMG/CN2.jpg')">
+                                        <img src="../IMG/CN2.jpg" alt="Profile 3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Information Section -->
+        <section id="personal-info" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-id-card"></i> ./personal_info --display
+                            </h2>
+                            <p class="cyber-text">Thông tin cá nhân và chức vụ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="info-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">personal_data@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-user"></i> Họ và tên:</span>
+                                        <span class="info-value">Vũ Hoàng Long</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-birthday-cake"></i> Ngày sinh:</span>
+                                        <span class="info-value">28/10/2005</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-map-marker-alt"></i> Địa chỉ:</span>
+                                        <span class="info-value">Xuân Lộc, Đồng Nai, Việt Nam</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-phone"></i> Điện thoại:</span>
+                                        <span class="info-value">+84 859 346 889</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-envelope"></i> Email:</span>
+                                        <span class="info-value">vulong.dongnai2810@gmail.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="info-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">education_career@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-graduation-cap"></i> Học vấn:</span>
+                                        <span class="info-value">ĐẠI HỌC CÔNG NGHIỆP TPHCM (IUH)</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-certificate"></i> Chuyên ngành:</span>
+                                        <span class="info-value">Hệ thống thông tin (Information Systems)</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-briefcase"></i> Chức vụ:</span>
+                                        <span class="info-value">Lớp trưởng & Bí thư Chi Đoàn DHHTTT19ATT</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-building"></i> Chức vụ Đảng bộ:</span>
+                                        <span class="info-value">Đảng viên</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label"><i class="fas fa-calendar-alt"></i> Kinh nghiệm:</span>
+                                        <span class="info-value">3+ năm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media & Personal Life Section -->
+        <section id="media-life" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-photo-video"></i> ./media_gallery --personal
+                            </h2>
+                            <p class="cyber-text">Hình ảnh, video và cuộc sống cá nhân</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Video Section -->
+                    <div class="col-lg-8">
+                        <div class="media-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">video_gallery@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="video-upload-area">
+                                    <i class="fas fa-video upload-icon"></i>
+                                    <h4>Tải lên Video của bạn</h4>
+                                    <p>Kéo thả video hoặc click để chọn file</p>
+                                    <input type="file" id="videoUpload" accept="video/*" style="display: none;">
+                                    <button class="upload-btn" onclick="document.getElementById('videoUpload').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i> Chọn Video
+                                </button>
+                                </div>
+                                <div class="video-preview" id="videoPreview" style="display: none;">
+                                    <video controls class="uploaded-video">
+                                    <source src="" type="video/mp4">
+                                    Trình duyệt không hỗ trợ video.
+                                </video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Gallery -->
+                        <div class="media-terminal mt-4">
+                            <div class="terminal-header">
+                                <div class="terminal-title">image_gallery@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="image-upload-area">
+                                    <i class="fas fa-images upload-icon"></i>
+                                    <h4>Thêm Hình ảnh</h4>
+                                    <p>Kéo thả hình ảnh hoặc click để chọn nhiều file</p>
+                                    <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                                    <button class="upload-btn" onclick="document.getElementById('imageUpload').click()">
+                                    <i class="fas fa-camera"></i> Chọn Hình ảnh
+                                </button>
+                                </div>
+                                <div class="image-gallery" id="imageGallery">
+                                    <!-- Images will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Relationship Status -->
+                    <div class="col-lg-4">
+                        <div class="girlfriend-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">girlfriend@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="girlfriend-profile">
+                                    <div class="girlfriend-avatar">
+                                        <div class="avatar-container">
+                                            <img src="../IMG/NY1.jpg" alt="Girlfriend" class="girlfriend-image" id="girlfriendImg">
+                                            <div class="heart-overlay">
+                                                <i class="fas fa-heart beating-heart"></i>
+                                            </div>
+                                        </div>
+                                        <input type="file" id="girlfriendUpload" accept="image/*" style="display: none;">
+                                        <button class="change-photo-btn" onclick="document.getElementById('girlfriendUpload').click()">
+                                        <i class="fas fa-camera"></i> Thêm ảnh
+                                    </button>
+                                    </div>
+
+                                    <div class="girlfriend-info">
+                                        <h3 class="girlfriend-name">
+                                            <i class="fas fa-heart"></i> Người yêu của tôi
+                                        </h3>
+
+                                        <div class="gf-details">
+                                            <div class="gf-info-item">
+                                                <i class="fas fa-user"></i>
+                                                <span class="gf-label">Tên:</span>
+                                                <span class="gf-value">Nguyễn Thị<br>Ngọc Hiếu</span>
+                                            </div>
+
+                                            <div class="gf-info-item">
+                                                <i class="fas fa-birthday-cake"></i>
+                                                <span class="gf-label">Sinh nhật:</span>
+                                                <span class="gf-value">19/03/2006</span>
+                                            </div>
+
+                                            <div class="gf-info-item">
+                                                <i class="fas fa-hourglass-half"></i>
+                                                <span class="gf-label">Tuổi:</span>
+                                                <span class="gf-value">19 tuổi</span>
+                                            </div>
+
+                                            <div class="gf-info-item">
+                                                <i class="fas fa-star"></i>
+                                                <span class="gf-label">Cung hoàng đạo:</span>
+                                                <span class="gf-value">Song Ngư ♓</span>
+                                            </div>
+
+                                            <div class="gf-info-item">
+                                                <i class="fas fa-calendar-heart"></i>
+                                                <span class="gf-label">Yêu từ:</span>
+                                                <span class="gf-value">18/05/2025</span>
+                                            </div>
+
+                                            <div class="gf-info-item">
+                                                <i class="fas fa-heart"></i>
+                                                <span class="gf-label">Mức độ yêu:</span>
+                                                <div class="love-hearts">
+                                                    <i class="fas fa-heart active"></i>
+                                                    <i class="fas fa-heart active"></i>
+                                                    <i class="fas fa-heart active"></i>
+                                                    <i class="fas fa-heart active"></i>
+                                                    <i class="fas fa-heart active"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- Gallery sections -->
+                                            <div class="gf-gallery-section">
+                                                <h4 class="gallery-title"><i class="fas fa-images"></i> Ảnh của chúng tôi</h4>
+                                                <div class="gf-image-gallery">
+                                                    <!-- Ảnh 1 - Thay đường dẫn ảnh tại đây -->
+                                                    <img src="../IMG/NY3.jpg" alt="Ảnh cô ấy 1" class="gf-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                    <div class="gf-image-placeholder" style="display: none;">
+                                                        <i class="fas fa-plus"></i>
+                                                        <span>Thêm ảnh couple1.jpg vào thư mục IMG</span>
+                                                    </div>
+
+                                                    <!-- Ảnh 2 -->
+                                                    <img src="../IMG/NY2.jpg" alt="Ảnh cô ấy 2" class="gf-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                    <div class="gf-image-placeholder" style="display: none;">
+                                                        <i class="fas fa-plus"></i>
+                                                        <span>Thêm ảnh couple2.jpg vào thư mục IMG</span>
+                                                    </div>
+
+                                                    <!-- Ảnh 3 -->
+                                                    <img src="../IMG/NY4.jpg" alt="Ảnh cô ấy 3" class="gf-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                    <div class="gf-image-placeholder" style="display: none;">
+                                                        <i class="fas fa-plus"></i>
+                                                        <span>Thêm ảnh couple3.jpg vào thư mục IMG</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="gf-description">
+                                                <p><i class="fas fa-quote-left"></i> Cô ấy là ánh sáng trong cuộc đời tôi, luôn mang lại niềm vui và động lực cho mỗi ngày. Một người con gái dịu dàng, thông minh và rất yêu đời. <i class="fas fa-quote-right"></i></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Family Section -->
+        <section id="family" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-home"></i> ./family --show-gallery
+                            </h2>
+                            <p class="cyber-text">Gia đình và những kỷ niệm đẹp</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="family-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">family_gallery@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="family-gallery">
+                                    <h3 class="gallery-section-title">
+                                        <i class="fas fa-users"></i> Album gia đình
+                                    </h3>
+                                    <div class="family-grid">
+                                        <div class="family-image-item">
+                                            <img src="../IMG/GD6.jpg" alt="Ảnh gia đình 1" class="family-image">
+                                            <div class="image-overlay">
+                                                <span>Gia đình 1</span>
+                                            </div>
+                                        </div>
+                                        <div class="family-image-item">
+                                            <img src="../IMG/GD2.jpg" alt="Ảnh gia đình 2" class="family-image">
+                                            <div class="image-overlay">
+                                                <span>Gia đình 2</span>
+                                            </div>
+                                        </div>
+                                        <div class="family-image-item">
+                                            <img src="../IMG/GD3.jpg" alt="Ảnh gia đình 3" class="family-image">
+                                            <div class="image-overlay">
+                                                <span>Gia đình 3</span>
+                                            </div>
+                                        </div>
+                                        <div class="family-image-item">
+                                            <img src="../IMG/GD4.jpg" alt="Ảnh gia đình 4" class="family-image">
+                                            <div class="image-overlay">
+                                                <span>Gia đình 4</span>
+                                            </div>
+                                        </div>
+                                        <div class="family-image-item">
+                                            <img src="../IMG/GD5.jpg" alt="Ảnh gia đình 5" class="family-image">
+                                            <div class="image-overlay">
+                                                <span>Gia đình 5</span>
+                                            </div>
+                                        </div>
+                                        <div class="family-image-item">
+                                            <img src="../IMG/GD1.jpg" alt="Ảnh gia đình 6" class="family-image">
+                                            <div class="image-overlay">
+                                                <span>Gia đình 6</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graduation Section -->
+        <section id="graduation" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-graduation-cap"></i> ./education --show-achievements
+                            </h2>
+                            <p class="cyber-text">Hành trình học tập và thành tựu</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="graduation-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">education@leo:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="graduation-gallery">
+                                    <h3 class="gallery-section-title">
+                                        <i class="fas fa-medal"></i> Kỷ niệm tốt nghiệp
+                                    </h3>
+                                    <div class="graduation-grid">
+                                        <div class="graduation-image-item">
+                                            <img src="../IMG/TN1.jpg" alt="Ảnh tốt nghiệp 1" class="graduation-image">
+                                            <div class="image-overlay">
+                                                <span>Tốt nghiệp 1</span>
+                                            </div>
+                                        </div>
+                                        <div class="graduation-image-item">
+                                            <img src="../IMG/TN2.jpg" alt="Ảnh tốt nghiệp 2" class="graduation-image">
+                                            <div class="image-overlay">
+                                                <span>Tốt nghiệp 2</span>
+                                            </div>
+                                        </div>
+                                        <div class="graduation-image-item">
+                                            <img src="../IMG/TN3.jpg" alt="Ảnh tốt nghiệp 3" class="graduation-image">
+                                            <div class="image-overlay">
+                                                <span>Tốt nghiệp 3</span>
+                                            </div>
+                                        </div>
+                                        <div class="graduation-image-item">
+                                            <img src="../IMG/TN4.jpg" alt="Ảnh tốt nghiệp 4" class="graduation-image">
+                                            <div class="image-overlay">
+                                                <span>Tốt nghiệp 4</span>
+                                            </div>
+                                        </div>
+                                        <div class="graduation-image-item">
+                                            <img src="../IMG/TN5.jpg" alt="Ảnh tốt nghiệp 5" class="graduation-image">
+                                            <div class="image-overlay">
+                                                <span>Tốt nghiệp 5</span>
+                                            </div>
+                                        </div>
+                                        <div class="graduation-image-item">
+                                            <img src="../IMG/TN6.jpg" alt="Ảnh tốt nghiệp 6" class="graduation-image">
+                                            <div class="image-overlay">
+                                                <span>Tốt nghiệp 6</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Car Gallery Section -->
+        <section id="car-gallery" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-car"></i> ./my_garage --show-collection
+                            </h2>
+                            <p class="cyber-text">Bộ sưu tập xe và phương tiện của tôi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Car Collection Display -->
+                    <div class="col-12">
+                        <div class="car-showcase-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-title">my_garage@leo:~$ ls -la</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="car-collection-grid">
+                                    <!-- BMW Z4 -->
+                                    <div class="car-showcase-item">
+                                        <div class="car-image-container">
+                                            <img src="../IMG/BMW.jpeg" alt="BMW Z4" class="car-showcase-image">
+                                            <div class="car-info-overlay">
+                                                <div class="car-name">BMW Z4 Roadster</div>
+                                                <div class="car-type">Xe thể thao mui trần</div>
+                                                <div class="car-year">2022</div>
+                                            </div>
+                                        </div>
+                                        <div class="car-details-panel">
+                                            <h4><i class="fas fa-car-side"></i> BMW Z4 sDrive30i</h4>
+                                            <div class="spec-grid">
+                                                <div class="spec-item">
+                                                    <i class="fas fa-cog"></i>
+                                                    <span>I4 2.0L TwinPower Turbo</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-tachometer-alt"></i>
+                                                    <span>258 HP / 400 Nm</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-stopwatch"></i>
+                                                    <span>0-100 km/h: 5.4s</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-palette"></i>
+                                                    <span>Xanh Metallic</span>
+                                                </div>
+                                            </div>
+                                            <div class="car-links">
+                                                <a href="https://www.bmw.vn/vi/all-models/z-series/z4-roadster/2023/highlights.html" target="_blank" class="car-link">
+                                                    <i class="fas fa-external-link-alt"></i> Chi tiết BMW Z4
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Honda Vision -->
+                                    <div class="car-showcase-item">
+                                        <div class="car-image-container">
+                                            <img src="../IMG/VSION.jpg" alt="Honda Vision" class="car-showcase-image">
+                                            <div class="car-info-overlay">
+                                                <div class="car-name">Honda Vision</div>
+                                                <div class="car-type">Xe máy tay ga</div>
+                                                <div class="car-year">2015</div>
+                                            </div>
+                                        </div>
+                                        <div class="car-details-panel">
+                                            <h4><i class="fas fa-motorcycle"></i> Honda Vision 110cc</h4>
+                                            <div class="spec-grid">
+                                                <div class="spec-item">
+                                                    <i class="fas fa-cog"></i>
+                                                    <span>eSP 110cc (109.5 cm³)</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-tachometer-alt"></i>
+                                                    <span>8.2 HP @ 7,500 rpm</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-weight"></i>
+                                                    <span>Trọng lượng: 98 kg</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-palette"></i>
+                                                    <span>Đỏ tươi</span>
+                                                </div>
+                                            </div>
+                                            <div class="car-links">
+                                                <a href="https://www.honda.com.vn/motorcycle/vision" target="_blank" class="car-link">
+                                                    <i class="fas fa-external-link-alt"></i> Chi tiết Honda Vision
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Kia Carnival 2025 -->
+                                    <div class="car-showcase-item">
+                                        <div class="car-image-container">
+                                            <img src="../IMG/Xe4.jpeg" alt="Kia Carnival 2025" class="car-showcase-image">
+                                            <div class="car-info-overlay">
+                                                <div class="car-name">Kia Carnival</div>
+                                                <div class="car-type">MPV cao cấp</div>
+                                                <div class="car-year">2025</div>
+                                            </div>
+                                        </div>
+                                        <div class="car-details-panel">
+                                            <h4><i class="fas fa-users"></i> Kia Carnival 2025</h4>
+                                            <div class="spec-grid">
+                                                <div class="spec-item">
+                                                    <i class="fas fa-cog"></i>
+                                                    <span>Hybrid 1.6L + Diesel 2.2L</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-tachometer-alt"></i>
+                                                    <span>242 HP (Hybrid) / 199 HP (Diesel)</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-ruler"></i>
+                                                    <span>5,155 × 1,995 × 1,775 mm</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-expand-arrows-alt"></i>
+                                                    <span>Chiều dài cơ sở: 3,090 mm</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-road"></i>
+                                                    <span>Khoảng sáng gầm: 172 mm</span>
+                                                </div>
+                                                <div class="spec-item">
+                                                    <i class="fas fa-gears"></i>
+                                                    <span>Hộp số tự động 8 cấp</span>
+                                                </div>
+                                            </div>
+                                            <div class="car-links">
+                                                <a href="https://www.kia.com/vn/models/carnival/" target="_blank" class="car-link">
+                                                    <i class="fas fa-external-link-alt"></i> Chi tiết Kia Carnival
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Garage Statistics -->
+                                <div class="garage-stats-section">
+                                    <div class="stats-terminal">
+                                        <div class="terminal-header">
+                                            <div class="terminal-title">garage_stats@leo:~$ ./stats.sh</div>
+                                        </div>
+                                        <div class="terminal-body">
+                                            <div class="stats-grid">
+                                                <div class="stat-card">
+                                                    <i class="fas fa-car"></i>
+                                                    <div class="stat-info">
+                                                        <span class="stat-number">3</span>
+                                                        <span class="stat-label">Tổng số xe</span>
+                                                    </div>
+                                                </div>
+                                                <div class="stat-card">
+                                                    <i class="fas fa-calendar-alt"></i>
+                                                    <div class="stat-info">
+                                                        <span class="stat-number">2024</span>
+                                                        <span class="stat-label">Cập nhật gần nhất</span>
+                                                    </div>
+                                                </div>
+                                                <div class="stat-card">
+                                                    <i class="fas fa-heart"></i>
+                                                    <div class="stat-info">
+                                                        <span class="stat-number">100%</span>
+                                                        <span class="stat-label">Độ hài lòng</span>
+                                                    </div>
+                                                </div>
+                                                <div class="stat-card">
+                                                    <i class="fas fa-tools"></i>
+                                                    <div class="stat-info">
+                                                        <span class="stat-number">3</span>
+                                                        <span class="stat-label">Loại xe</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-user-secret"></i> ls -la ./about_me/
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="file-name">about.json</span>
+                            </div>
+                            <div class="code-content">
+                                <pre><code>{
+  "name": "Vũ Hoàng Long",
+  "age": 20,
+  "location": "Vietnam",
+  "education": "Computer Science",
+  "experience": "3+ years",
+  "languages": ["Vietnamese", "English"],
+  "status": "Available for work",
+  "mission": "Creating secure & innovative solutions"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hacker-card">
+                            <h3>Tự Giới Thiệu</h3>
+                            <p>Tôi là một developer với niềm đam mê mãnh liệt về công nghệ và bảo mật thông tin. Với hơn 3 năm kinh nghiệm trong lĩnh vực phát triển phần mềm, tôi chuyên về:</p>
+                            <ul>
+                                <li><i class="fas fa-code"></i> Phát triển ứng dụng web full-stack</li>
+                                <li><i class="fas fa-shield-alt"></i> Penetration Testing & Ethical Hacking</li>
+                                <li><i class="fas fa-database"></i> Quản trị cơ sở dữ liệu</li>
+                                <li><i class="fas fa-network-wired"></i> Network Security</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-tools"></i> cat /proc/skills
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icons">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="skill-logo">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="skill-logo">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" class="skill-logo">
+                                </div>
+                                <h4>Frontend</h4>
+                            </div>
+                            <div class="skill-list">
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="skill-mini-icon"> HTML5/CSS3
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="skill-mini-icon"> JavaScript
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="skill-mini-icon"> React.js
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icons">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" class="skill-logo">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-logo">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="skill-logo">
+                                </div>
+                                <h4>Backend</h4>
+                            </div>
+                            <div class="skill-list">
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="skill-mini-icon"> Node.js
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="skill-mini-icon"> Python
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 88%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="skill-mini-icon"> MySQL
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icons">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="skill-logo">
+                                    <img src="../IMG/kali-linux-icon.svg" alt="Kali" class="skill-logo">
+                                    <img src="../IMG/metasploit-icon.svg" alt="Metasploit" class="skill-logo">
+                                </div>
+                                <h4>Security</h4>
+                            </div>
+                            <div class="skill-list">
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="../IMG/kali-linux-icon.svg" class="skill-mini-icon"> Kali Linux
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="../IMG/metasploit-icon.svg" class="skill-mini-icon"> Metasploit
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>
+                                    <img src="../IMG/burpsuite-icon.svg" class="skill-mini-icon"> Burp Suite
+                                </span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Showcase Section -->
+        <section class="tech-showcase section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-code-branch"></i> ./tech_stack --showcase
+                            </h2>
+                            <p class="cyber-text">Technologies I work with</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programming Languages -->
+                <div class="tech-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-terminal"></i> Programming Languages
+                    </h3>
+                    <div class="tech-grid">
+                        <div class="tech-item" data-tech="JavaScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-item" data-tech="Python">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                            <span>Python</span>
+                        </div>
+                        <div class="tech-item" data-tech="TypeScript">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                            <span>TypeScript</span>
+                        </div>
+                        <div class="tech-item" data-tech="Java">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+                            <span>Java</span>
+                        </div>
+                        <div class="tech-item" data-tech="C++">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+                            <span>C++</span>
+                        </div>
+                        <div class="tech-item" data-tech="PHP">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+                            <span>PHP</span>
+                        </div>
+                        <div class="tech-item" data-tech="C#">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
+                            <span>C#</span>
+                        </div>
+                        <div class="tech-item" data-tech="Go">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Go">
+                            <span>Go</span>
+                        </div>
+                        <div class="tech-item" data-tech="Rust">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg" alt="Rust">
+                            <span>Rust</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frameworks & Libraries -->
+                <div class="tech-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-cubes"></i> Frameworks & Libraries
+                    </h3>
+                    <div class="tech-grid">
+                        <div class="tech-item" data-tech="React">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                            <span>React</span>
+                        </div>
+                        <div class="tech-item" data-tech="Vue.js">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" alt="Vue.js">
+                            <span>Vue.js</span>
+                        </div>
+                        <div class="tech-item" data-tech="Angular">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular">
+                            <span>Angular</span>
+                        </div>
+                        <div class="tech-item" data-tech="Node.js">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                            <span>Node.js</span>
+                        </div>
+                        <div class="tech-item" data-tech="Express">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express">
+                            <span>Express</span>
+                        </div>
+                        <div class="tech-item" data-tech="Django">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django">
+                            <span>Django</span>
+                        </div>
+                        <div class="tech-item" data-tech="Flask">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask">
+                            <span>Flask</span>
+                        </div>
+                        <div class="tech-item" data-tech="Spring Boot">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring">
+                            <span>Spring Boot</span>
+                        </div>
+                        <div class="tech-item" data-tech="Laravel">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg" alt="Laravel">
+                            <span>Laravel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="tech-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-database"></i> Databases
+                    </h3>
+                    <div class="tech-grid">
+                        <div class="tech-item" data-tech="MySQL">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                            <span>MySQL</span>
+                        </div>
+                        <div class="tech-item" data-tech="PostgreSQL">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL">
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="tech-item" data-tech="MongoDB">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="tech-item" data-tech="Redis">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis">
+                            <span>Redis</span>
+                        </div>
+                        <div class="tech-item" data-tech="SQLite">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite">
+                            <span>SQLite</span>
+                        </div>
+                        <div class="tech-item" data-tech="Oracle">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle">
+                            <span>Oracle</span>
+                        </div>
+                        <div class="tech-item" data-tech="Elasticsearch">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffd033'/%3E%3Ccircle cx='50' cy='50' r='35' fill='%23333'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='%23ffd033' font-family='Arial' font-size='10' font-weight='bold'%3EES%3C/text%3E%3C/svg%3E"
+                                alt="Elasticsearch">
+                            <span>Elasticsearch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creative & Media Tools -->
+                <div class="tech-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-palette"></i> Creative & Media Tools
+                    </h3>
+                    <div class="tech-grid">
+                        <div class="tech-item" data-tech="Adobe Photoshop">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-line.svg" alt="Photoshop">
+                            <span>Photoshop</span>
+                        </div>
+                        <div class="tech-item" data-tech="Adobe Illustrator">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-line.svg" alt="Illustrator">
+                            <span>Illustrator</span>
+                        </div>
+                        <div class="tech-item" data-tech="Adobe Premiere Pro">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg" alt="Premiere Pro">
+                            <span>Premiere Pro</span>
+                        </div>
+                        <div class="tech-item" data-tech="Adobe After Effects">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg" alt="After Effects">
+                            <span>After Effects</span>
+                        </div>
+                        <div class="tech-item" data-tech="Figma">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+                            <span>Figma</span>
+                        </div>
+                        <div class="tech-item" data-tech="Blender">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" alt="Blender">
+                            <span>Blender</span>
+                        </div>
+                        <div class="tech-item" data-tech="Canva">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="Canva">
+                            <span>Canva</span>
+                        </div>
+                        <div class="tech-item" data-tech="Unity">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" alt="Unity">
+                            <span>Unity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Tools -->
+                <div class="tech-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-user-ninja"></i> Security Arsenal
+                    </h3>
+                    <div class="tech-grid">
+                        <div class="tech-item" data-tech="Kali Linux">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23367bf0'/%3E%3Cpath d='M20 30 L50 15 L80 30 L80 70 L50 85 L20 70 Z' fill='white'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='%23367bf0' font-family='Arial' font-size='12' font-weight='bold'%3EKali%3C/text%3E%3C/svg%3E"
+                                alt="Kali Linux">
+                            <span>Kali Linux</span>
+                        </div>
+                        <div class="tech-item" data-tech="Metasploit">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0040'/%3E%3Cpath d='M25 25 L75 25 L75 75 L25 75 Z M30 30 L70 30 L70 70 L30 70 Z' fill='white'/%3E%3Ctext x='50' y='53' text-anchor='middle' fill='%23ff0040' font-family='Arial' font-size='8' font-weight='bold'%3EMSF%3C/text%3E%3C/svg%3E"
+                                alt="Metasploit">
+                            <span>Metasploit</span>
+                        </div>
+                        <div class="tech-item" data-tech="Burp Suite">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff6633'/%3E%3Ccircle cx='50' cy='50' r='30' fill='white'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='%23ff6633' font-family='Arial' font-size='10' font-weight='bold'%3EBurp%3C/text%3E%3C/svg%3E"
+                                alt="Burp Suite">
+                            <span>Burp Suite</span>
+                        </div>
+                        <div class="tech-item" data-tech="Wireshark">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231679a7'/%3E%3Cpath d='M30 20 Q50 10 70 20 Q80 50 70 80 Q50 90 30 80 Q20 50 30 20' fill='white'/%3E%3Ctext x='50' y='53' text-anchor='middle' fill='%231679a7' font-family='Arial' font-size='8' font-weight='bold'%3EWS%3C/text%3E%3C/svg%3E"
+                                alt="Wireshark">
+                            <span>Wireshark</span>
+                        </div>
+                        <div class="tech-item" data-tech="Nmap">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000000'/%3E%3Cpath d='M20 30 L50 15 L80 30 L80 70 L50 85 L20 70 Z' fill='%2300ff41'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='black' font-family='Arial' font-size='10' font-weight='bold'%3ENmap%3C/text%3E%3C/svg%3E"
+                                alt="Nmap">
+                            <span>Nmap</span>
+                        </div>
+                        <div class="tech-item" data-tech="OWASP ZAP">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff4500'/%3E%3Cpath d='M25 25 L75 25 L60 50 L75 75 L25 75 L40 50 Z' fill='white'/%3E%3Ctext x='50' y='58' text-anchor='middle' fill='%23ff4500' font-family='Arial' font-size='8' font-weight='bold'%3EZAP%3C/text%3E%3C/svg%3E"
+                                alt="OWASP ZAP">
+                            <span>OWASP ZAP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud & DevOps -->
+                <div class="tech-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-cloud"></i> Cloud & DevOps
+                    </h3>
+                    <div class="tech-grid">
+                        <div class="tech-item" data-tech="AWS">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS">
+                            <span>AWS</span>
+                        </div>
+                        <div class="tech-item" data-tech="Google Cloud">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud">
+                            <span>Google Cloud</span>
+                        </div>
+                        <div class="tech-item" data-tech="Microsoft Azure">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure">
+                            <span>Azure</span>
+                        </div>
+                        <div class="tech-item" data-tech="Docker">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+                            <span>Docker</span>
+                        </div>
+                        <div class="tech-item" data-tech="Kubernetes">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
+                            <span>Kubernetes</span>
+                        </div>
+                        <div class="tech-item" data-tech="Jenkins">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins">
+                            <span>Jenkins</span>
+                        </div>
+                        <div class="tech-item" data-tech="Git">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+                            <span>Git</span>
+                        </div>
+                        <div class="tech-item" data-tech="GitHub">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                            <span>GitHub</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hobbies Section -->
+        <section id="hobbies" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-heart"></i> ./hobbies --list-all
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h4>Âm Nhạc</h4>
+                            <p>Đam mê EDM, Synthwave và Lo-fi. Thích sáng tác nhạc điện tử và chơi guitar.</p>
+                            <div class="music-player">
+                                <div class="music-track">
+                                    <span class="track-name">Bài 1:</span>
+                                    <audio controls>
+                                        <source src="../MUSIC/Music1.mp3" type="audio/mpeg">
+                                        Trình duyệt không hỗ trợ audio.
+                                    </audio>
+                                </div>
+                                <div class="music-track">
+                                    <span class="track-name">Bài 2:</span>
+                                    <audio controls>
+                                        <source src="../MUSIC/Music2.mp3" type="audio/mpeg">
+                                        Trình duyệt không hỗ trợ audio.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h4>Gaming</h4>
+                            <p>Yêu thích game hacking, cyberpunk và strategy games. Đặc biệt thích Cyberpunk 2077.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h4>Đọc Sách</h4>
+                            <p>Thích đọc về cybersecurity, AI, và sci-fi novels. Luôn học hỏi công nghệ mới. Nhưng thích nhất những sách về lịch sử Việt Nam</p>
+                            <div class="book-library">
+                                <h5><i class="fas fa-file-pdf"></i> Thư viện PDF:</h5>
+                                <div class="pdf-links">
+                                    <a href="../PDF/MUADO.pdf" target="_blank" class="pdf-link">
+                                        <i class="fas fa-book-open"></i> MƯA ĐỎ
+                                    </a>
+                                </div>
+                                <div class="add-pdf-note">
+                                    <small><i class="fas fa-info-circle"></i> Đặt file PDF vào thư mục PDF/</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="hobby-card">
+                            <div class="hobby-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h4>Photography</h4>
+                            <p>Chụp ảnh street photography và night cityscape với phong cách cyberpunk.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title">
+                            <h2 class="terminal-text">
+                                <i class="fas fa-envelope"></i> ./contact --establish-connection
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="contact-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-buttons">
+                                    <span class="btn-close"></span>
+                                    <span class="btn-minimize"></span>
+                                    <span class="btn-maximize"></span>
+                                </div>
+                                <div class="terminal-title">contact@hacker:~</div>
+                            </div>
+                            <div class="terminal-body">
+                                <div class="contact-info">
+                                    <div class="contact-item">
+                                        <span class="prompt">email@domain:~$</span>
+                                        <span class="contact-value">vulong.dongnai2810@gmail.com</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="prompt">phone@mobile:~$</span>
+                                        <span class="contact-value">+84 859 346 889</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="prompt">github@profile:~$</span>
+                                        <span class="contact-value">github.com/vulong2810</span>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="prompt">linkedin@network:~$</span>
+                                        <span class="contact-value">linkedin.com/in/vulong2810</span>
+                                    </div>
+                                </div>
+                                <div class="social-links">
+                                    <a href="https://www.facebook.com/share/1Et6v6ybdZ/?mibextid=wwXIfr" target="_blank" class="social-link facebook-link" title="Facebook">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/longhvu05/?igsh=eGQ2cjg5N2Z2YWlo&utm_source=qr" target="_blank" class="social-link instagram-link" title="Instagram">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="https://www.tiktok.com/@longvu2810?_t=ZS-90jwHnuLf1s&_r=1" target="_blank" class="social-link tiktok-link" title="TikTok">
+                                        <i class="fab fa-tiktok"></i>
+                                    </a>
+                                    <a href="https://github.com/Leo2810-king" target="_blank" class="social-link github-link" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Floating Action Buttons -->
+        <div class="floating-actions">
+            <button class="fab-main" id="hackModeBtn" title="Toggle Hack Mode">
+            <i class="fas fa-user-ninja"></i>
+        </button>
+            <button class="fab-secondary sound-toggle" id="soundToggle" title="Toggle Sound">
+            <i class="fas fa-volume-up"></i>
+        </button>
+            <button class="fab-secondary matrix-toggle" id="matrixToggle" title="Toggle Matrix">
+            <i class="fas fa-code"></i>
+        </button>
+            <button class="fab-secondary theme-toggle" id="themeToggle" title="Change Theme">
+            <i class="fas fa-palette"></i>
+        </button>
+        </div>
+
+        <!-- Easter Egg Terminal -->
+        <div id="hidden-terminal" class="hidden-terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn-close" onclick="closeHiddenTerminal()"></span>
+                    <span class="btn-minimize"></span>
+                    <span class="btn-maximize"></span>
+                </div>
+                <div class="terminal-title">secret@hacker:~</div>
+            </div>
+            <div class="terminal-body">
+                <div id="terminal-history"></div>
+                <div class="terminal-input-line">
+                    <span class="prompt">root@secret:~$</span>
+                    <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sound Effects -->
+        <audio id="typingSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmAaAzOH0fPTgjEGHWq+8+OZSA0PVqzn77BdGAg+ltryxnkpBSl+zPLaizsIGGS57+OdTgwOUarm7bheFgU7k9n1unMjAyKAzvLZizoIGGa57+CdTQwPUqvn7LVeGgU3j9n0wXYiBC6BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyJ/zvLZizsIGGS57+OdTgwOUarm7bZeFgU6k9j1unMjAyKAzvLZizoIGGa57+CdTQwPUqvn7LVeGgU3j9n0wXYiBC6BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqrn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rheFgU7k9n1unMjAyKAzvLZizoIGGS57+OdTgwPUqvn7LVeGgU3j9n0wXYjBC2BzvLYizUIGWm58+OaSwwOVKrj7rhe" type="audio/wav">
+    </audio>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="terminal-text">
+                            <span class="prompt">root@portfolio:~$</span> echo "© 2024 - Designed with <i class="fas fa-heart"></i> and lots of <i class="fas fa-coffee"></i>"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="../JS/bootstrap.bundle.min.js"></script>
+
+        <!-- Custom JS -->
+        <script>
+            // Media Upload Functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                // Video Upload
+                const videoUpload = document.getElementById('videoUpload');
+                const videoPreview = document.getElementById('videoPreview');
+
+                videoUpload.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file && file.type.startsWith('video/')) {
+                        const url = URL.createObjectURL(file);
+                        const video = videoPreview.querySelector('video source');
+                        video.src = url;
+                        videoPreview.querySelector('video').load();
+                        videoPreview.style.display = 'block';
+
+                        // Add file info
+                        console.log('Video uploaded:', file.name, file.size);
+                    }
+                });
+
+                // Image Upload
+                const imageUpload = document.getElementById('imageUpload');
+                const imageGallery = document.getElementById('imageGallery');
+
+                imageUpload.addEventListener('change', function(e) {
+                    const files = Array.from(e.target.files);
+                    files.forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            const url = URL.createObjectURL(file);
+                            const img = document.createElement('img');
+                            img.src = url;
+                            img.alt = file.name;
+                            img.addEventListener('click', function() {
+                                // Open image in modal/fullscreen
+                                const modal = document.createElement('div');
+                                modal.style.cssText = `
+                                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                                background: rgba(0,0,0,0.9); display: flex; align-items: center;
+                                justify-content: center; z-index: 9999; cursor: pointer;
+                            `;
+                                const modalImg = document.createElement('img');
+                                modalImg.src = url;
+                                modalImg.style.cssText = `max-width: 90%; max-height: 90%; border-radius: 8px;`;
+                                modal.appendChild(modalImg);
+                                modal.addEventListener('click', () => modal.remove());
+                                document.body.appendChild(modal);
+                            });
+                            imageGallery.appendChild(img);
+                        }
+                    });
+                });
+
+                // Relationship Status
+                const relationshipOptions = document.querySelectorAll('input[name="relationship"]');
+                const partnerInfo = document.querySelector('.partner-info');
+                const saveStatusBtn = document.querySelector('.save-status-btn');
+
+                relationshipOptions.forEach(option => {
+                    option.addEventListener('change', function() {
+                        if (this.value === 'dating' || this.value === 'committed') {
+                            partnerInfo.style.display = 'block';
+                        } else {
+                            partnerInfo.style.display = 'none';
+                        }
+                    });
+                });
+
+                saveStatusBtn.addEventListener('click', function() {
+                    const selected = document.querySelector('input[name="relationship"]:checked');
+                    if (selected) {
+                        const status = selected.value;
+                        const partnerName = document.querySelector('.partner-input').value;
+                        const partnerDesc = document.querySelector('.partner-description').value;
+
+                        // Save to localStorage
+                        localStorage.setItem('relationshipStatus', JSON.stringify({
+                            status: status,
+                            partnerName: partnerName,
+                            partnerDescription: partnerDesc,
+                            updatedAt: new Date().toISOString()
+                        }));
+
+                        // Show success message
+                        this.innerHTML = '<i class="fas fa-check"></i> Đã lưu!';
+                        this.style.background = 'linear-gradient(135deg, #2ed573, #1e90ff)';
+
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-save"></i> Lưu trạng thái';
+                            this.style.background = 'linear-gradient(135deg, #ff4757, #ff6b7a)';
+                        }, 2000);
+                    }
+                });
+
+                // Girlfriend Profile Functionality
+                const girlfriendUpload = document.getElementById('girlfriendUpload');
+                const girlfriendImg = document.getElementById('girlfriendImg');
+                const saveGfBtn = document.querySelector('.save-gf-btn');
+                const loveHearts = document.querySelectorAll('.love-level .hearts i');
+
+                // Girlfriend image upload
+                if (girlfriendUpload) {
+                    girlfriendUpload.addEventListener('change', function(e) {
+                        const file = e.target.files[0];
+                        if (file && file.type.startsWith('image/')) {
+                            const url = URL.createObjectURL(file);
+                            girlfriendImg.src = url;
+                        }
+                    });
+                }
+
+                // Love level hearts
+                loveHearts.forEach((heart, index) => {
+                    heart.addEventListener('click', function() {
+                        loveHearts.forEach((h, i) => {
+                            if (i <= index) {
+                                h.classList.add('active');
+                            } else {
+                                h.classList.remove('active');
+                            }
+                        });
+                    });
+
+                    heart.addEventListener('mouseenter', function() {
+                        loveHearts.forEach((h, i) => {
+                            if (i <= index) {
+                                h.style.color = '#ff4757';
+                            } else {
+                                h.style.color = '#333';
+                            }
+                        });
+                    });
+                });
+
+                document.querySelector('.love-level').addEventListener('mouseleave', function() {
+                    loveHearts.forEach(h => {
+                        if (!h.classList.contains('active')) {
+                            h.style.color = '#333';
+                        }
+                    });
+                });
+
+                // Save girlfriend info
+                if (saveGfBtn) {
+                    saveGfBtn.addEventListener('click', function() {
+                        const gfData = {
+                            name: document.getElementById('gfName').value,
+                            birthday: document.getElementById('gfBirthday').value,
+                            description: document.getElementById('gfDescription').value,
+                            since: document.getElementById('gfSince').value,
+                            loveLevel: document.querySelectorAll('.love-level .hearts i.active').length,
+                            photo: girlfriendImg.src,
+                            updatedAt: new Date().toISOString()
+                        };
+
+                        localStorage.setItem('girlfriendProfile', JSON.stringify(gfData));
+
+                        this.innerHTML = '<i class="fas fa-check"></i> Đã lưu!';
+                        this.style.background = 'linear-gradient(135deg, #2ed573, #1e90ff)';
+
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-heart"></i> Lưu thông tin';
+                            this.style.background = 'linear-gradient(135deg, #ff4757, #ff6b7a)';
+                        }, 2000);
+                    });
+                }
+
+                // Car Gallery Functionality
+                const carUpload = document.getElementById('carUpload');
+                const carGallery = document.getElementById('carGallery');
+                const saveCarBtn = document.querySelector('.save-car-btn');
+                let carCollection = JSON.parse(localStorage.getItem('carCollection')) || [];
+
+                // Car upload
+                if (carUpload) {
+                    carUpload.addEventListener('change', function(e) {
+                        const files = Array.from(e.target.files);
+                        files.forEach(file => {
+                            if (file.type.startsWith('image/')) {
+                                const url = URL.createObjectURL(file);
+                                addCarToGallery({
+                                    image: url,
+                                    fileName: file.name,
+                                    brand: '',
+                                    model: '',
+                                    year: '',
+                                    color: '',
+                                    power: '',
+                                    mileage: '',
+                                    notes: ''
+                                });
+                            }
+                        });
+                        updateCarStats();
+                    });
+                }
+
+                // Add car to gallery
+                function addCarToGallery(carData) {
+                    const carItem = document.createElement('div');
+                    carItem.className = 'car-item';
+                    carItem.innerHTML = `
+                    <img src="${carData.image}" alt="${carData.fileName}">
+                    <div class="car-info-overlay">
+                        <div>${carData.brand} ${carData.model}</div>
+                        <div>${carData.year} - ${carData.color}</div>
+                    </div>
+                `;
+
+                    carItem.addEventListener('click', function() {
+                        // Open car in modal
+                        const modal = document.createElement('div');
+                        modal.style.cssText = `
+                        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                        background: rgba(0,0,0,0.9); display: flex; align-items: center;
+                        justify-content: center; z-index: 9999; cursor: pointer;
+                    `;
+                        const modalImg = document.createElement('img');
+                        modalImg.src = carData.image;
+                        modalImg.style.cssText = `max-width: 90%; max-height: 90%; border-radius: 8px;`;
+                        modal.appendChild(modalImg);
+                        modal.addEventListener('click', () => modal.remove());
+                        document.body.appendChild(modal);
+                    });
+
+                    carGallery.appendChild(carItem);
+                }
+
+                // Save car info
+                if (saveCarBtn) {
+                    saveCarBtn.addEventListener('click', function() {
+                        const carData = {
+                            brand: document.getElementById('carBrand').value,
+                            model: document.getElementById('carModel').value,
+                            year: document.getElementById('carYear').value,
+                            color: document.getElementById('carColor').value,
+                            power: document.getElementById('carPower').value,
+                            mileage: document.getElementById('carMileage').value,
+                            notes: document.getElementById('carNotes').value,
+                            addedAt: new Date().toISOString()
+                        };
+
+                        carCollection.push(carData);
+                        localStorage.setItem('carCollection', JSON.stringify(carCollection));
+                        updateCarStats();
+
+                        this.innerHTML = '<i class="fas fa-check"></i> Đã lưu!';
+                        this.style.background = 'linear-gradient(135deg, #2ed573, #1e90ff)';
+
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-save"></i> Lưu thông tin xe';
+                            this.style.background = 'linear-gradient(135deg, #ffa500, #ff8c00)';
+                        }, 2000);
+
+                        // Clear form
+                        document.querySelectorAll('.car-input, .car-textarea').forEach(input => {
+                            input.value = '';
+                        });
+                    });
+                }
+
+                // Update car statistics
+                function updateCarStats() {
+                    const totalCars = carCollection.length;
+                    const newestCar = totalCars > 0 ?
+                        `${carCollection[totalCars - 1].brand} ${carCollection[totalCars - 1].model}` :
+                        'Chưa có';
+
+                    const totalCarsEl = document.getElementById('totalCars');
+                    const newestCarEl = document.getElementById('newestCar');
+
+                    if (totalCarsEl) totalCarsEl.textContent = totalCars;
+                    if (newestCarEl) newestCarEl.textContent = newestCar;
+                }
+
+                // Load saved data on page load
+                const savedGfProfile = localStorage.getItem('girlfriendProfile');
+                if (savedGfProfile) {
+                    const gfData = JSON.parse(savedGfProfile);
+                    if (document.getElementById('gfName')) document.getElementById('gfName').value = gfData.name || '';
+                    if (document.getElementById('gfBirthday')) document.getElementById('gfBirthday').value = gfData.birthday || '';
+                    if (document.getElementById('gfDescription')) document.getElementById('gfDescription').value = gfData.description || '';
+                    if (document.getElementById('gfSince')) document.getElementById('gfSince').value = gfData.since || '';
+                    if (gfData.photo && gfData.photo !== girlfriendImg.src) {
+                        girlfriendImg.src = gfData.photo;
+                    }
+
+                    // Set love level
+                    loveHearts.forEach((heart, index) => {
+                        if (index < (gfData.loveLevel || 0)) {
+                            heart.classList.add('active');
+                        }
+                    });
+                }
+
+                // Initialize car stats
+                updateCarStats();
+            });
+
+            // Loading Screen
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    document.getElementById('loading-screen').classList.add('hidden');
+                    setTimeout(() => {
+                        document.getElementById('loading-screen').style.display = 'none';
+                    }, 500);
+                }, 3000);
+            });
+
+            // Matrix Rain Effect
+            function createMatrixRain() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                document.getElementById('matrix-bg').appendChild(canvas);
+
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+                const matrixArray = matrix.split("");
+
+                const fontSize = 10;
+                const columns = canvas.width / fontSize;
+
+                const drops = [];
+                for (let x = 0; x < columns; x++) {
+                    drops[x] = 1;
+                }
+
+                function draw() {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = '#0F3460';
+                    ctx.font = fontSize + 'px monospace';
+
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                }
+
+                setInterval(draw, 35);
+            }
+
+            // Particle Effects
+            function createParticles() {
+                const container = document.getElementById('particles-container');
+
+                function createParticle() {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    particle.style.animationDelay = Math.random() * 2 + 's';
+
+                    container.appendChild(particle);
+
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 5000);
+                }
+
+                setInterval(createParticle, 300);
+            }
+
+            // Typing Animation Enhanced
+            function typeWriter(element, text, speed = 100, callback) {
+                let i = 0;
+                element.innerHTML = '';
+
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        playTypingSound();
+                        i++;
+                        setTimeout(type, speed + Math.random() * 50);
+                    } else if (callback) {
+                        setTimeout(callback, 500);
+                    }
+                }
+                type();
+            }
+
+            // Sound Effects
+            function playTypingSound() {
+                const sound = document.getElementById('typingSound');
+                if (sound && !sound.muted) {
+                    sound.currentTime = 0;
+                    sound.play().catch(() => {});
+                }
+            }
+
+            // Glitch Effect
+            function triggerGlitch() {
+                const overlay = document.querySelector('.glitch-overlay');
+                overlay.classList.add('active');
+                setTimeout(() => {
+                    overlay.classList.remove('active');
+                }, 100);
+            }
+
+            // Hidden Terminal
+            let terminalHistory = [];
+            const terminalCommands = {
+                'help': 'Available commands: help, whoami, ls, cat, clear, hack, matrix, sound',
+                'whoami': 'You are now in the matrix, Neo.',
+                'ls': 'total 42\\ndrwxr-xr-x secrets/\\n-rwxr-xr-x hack_the_planet.sh\\n-rw-r--r-- portfolio.json',
+                'cat hack_the_planet.sh': '#!/bin/bash\\necho "Access Granted"\\necho "Welcome to the future!"',
+                'clear': 'CLEAR_TERMINAL',
+                'hack': 'Initiating hacking sequence...\\n[████████████████████] 100%\\nAccess Granted!',
+                'matrix': 'You take the red pill...',
+                'sound': 'Sound effects toggled!'
+            };
+
+            function showHiddenTerminal() {
+                const terminal = document.getElementById('hidden-terminal');
+                terminal.classList.add('active');
+                document.getElementById('terminal-input').focus();
+            }
+
+            function closeHiddenTerminal() {
+                const terminal = document.getElementById('hidden-terminal');
+                terminal.classList.remove('active');
+            }
+
+            // Terminal Input Handler
+            document.getElementById('terminal-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const input = e.target.value.trim();
+                    const history = document.getElementById('terminal-history');
+
+                    // Add command to history
+                    const commandLine = document.createElement('div');
+                    commandLine.innerHTML = `<span class="prompt">root@secret:~$</span> ${input}`;
+                    history.appendChild(commandLine);
+
+                    // Process command
+                    const output = document.createElement('div');
+                    if (terminalCommands[input]) {
+                        if (terminalCommands[input] === 'CLEAR_TERMINAL') {
+                            history.innerHTML = '';
+                        } else {
+                            output.innerHTML = terminalCommands[input];
+                            output.style.color = 'var(--text-cyan)';
+                            history.appendChild(output);
+                        }
+                    } else if (input) {
+                        output.innerHTML = `Command not found: ${input}`;
+                        output.style.color = 'var(--glitch-red)';
+                        history.appendChild(output);
+                    }
+
+                    e.target.value = '';
+                    history.scrollTop = history.scrollHeight;
+                }
+            });
+
+            // Floating Action Buttons
+            document.getElementById('hackModeBtn').addEventListener('click', function() {
+                triggerGlitch();
+                showHiddenTerminal();
+            });
+
+            document.getElementById('soundToggle').addEventListener('click', function() {
+                const sound = document.getElementById('typingSound');
+                const icon = this.querySelector('i');
+
+                if (sound.muted) {
+                    sound.muted = false;
+                    icon.className = 'fas fa-volume-up';
+                } else {
+                    sound.muted = true;
+                    icon.className = 'fas fa-volume-mute';
+                }
+            });
+
+            document.getElementById('matrixToggle').addEventListener('click', function() {
+                const matrix = document.getElementById('matrix-bg');
+                matrix.style.display = matrix.style.display === 'none' ? 'block' : 'none';
+            });
+
+            document.getElementById('themeToggle').addEventListener('click', function() {
+                const root = document.documentElement;
+                const currentTheme = root.style.getPropertyValue('--primary-color');
+
+                if (currentTheme.includes('#00ff41')) {
+                    root.style.setProperty('--primary-color', '#ff0080');
+                    root.style.setProperty('--text-green', '#ff0080');
+                } else {
+                    root.style.setProperty('--primary-color', '#00ff41');
+                    root.style.setProperty('--text-green', '#00ff41');
+                }
+            });
+
+            // Chỉ khởi động khi đã login
+            function initializeEffects() {
+                if (sessionStorage.getItem('isLoggedIn') !== 'true') return;
+
+                // Matrix Rain Effect
+                function createMatrixRain() {
+                    const canvas = document.createElement('canvas');
+                    canvas.id = 'matrix-canvas';
+                    const ctx = canvas.getContext('2d');
+                    document.getElementById('matrix-bg').appendChild(canvas);
+
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+
+                    const matrixArray = '01'.split('');
+                    const fontSize = 10;
+                    const columns = canvas.width / fontSize;
+                    const drops = [];
+
+                    for (let x = 0; x < columns; x++) {
+                        drops[x] = 1;
+                    }
+
+                    function draw() {
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        ctx.fillStyle = '#00ff41';
+                        ctx.font = fontSize + 'px monospace';
+
+                        for (let i = 0; i < drops.length; i++) {
+                            const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                                drops[i] = 0;
+                            }
+                            drops[i]++;
+                        }
+                    }
+
+                    setInterval(draw, 35);
+                }
+
+                // Particle Effects
+                function createParticles() {
+                    const container = document.getElementById('particles-container');
+                    if (!container) return;
+
+                    function createParticle() {
+                        const particle = document.createElement('div');
+                        particle.className = 'particle';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                        particle.style.animationDelay = Math.random() * 2 + 's';
+
+                        container.appendChild(particle);
+
+                        setTimeout(() => {
+                            particle.remove();
+                        }, 5000);
+                    }
+
+                    setInterval(createParticle, 300);
+                } // Sequential typing animations
+                setTimeout(() => {
+                    const typingElement = document.querySelector('.typing-animation');
+                    if (typingElement) {
+                        typeWriter(typingElement, 'whoami', 150, () => {
+                            setTimeout(() => {
+                                const typingElement2 = document.querySelector('.typing-animation-2');
+                                if (typingElement2) {
+                                    typeWriter(typingElement2, 'cat introduction.txt', 100, () => {
+                                        setTimeout(() => {
+                                            const typingElement3 = document.querySelector('.typing-animation-3');
+                                            if (typingElement3) {
+                                                typeWriter(typingElement3, 'ls -la skills/', 120);
+                                            }
+                                        }, 1000);
+                                    });
+                                }
+                            }, 1000);
+                        });
+                    }
+                }, 4000);
+
+                // Smooth scrolling
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                });
+
+                // Random glitch effects
+                setInterval(() => {
+                    if (Math.random() < 0.1) {
+                        triggerGlitch();
+                    }
+                }, 5000);
+
+                // Window resize handler
+                window.addEventListener('resize', function() {
+                    const canvas = document.querySelector('#matrix-bg canvas');
+                    if (canvas) {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                    }
+                });
+            }
+
+            // Chỉ khởi động khi đã login
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                initializeEffects();
+            }
+
+            // Scroll reveal animations
+            function scrollReveal() {
+                const reveals = document.querySelectorAll('.scroll-reveal');
+                for (let i = 0; i < reveals.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('revealed');
+                    }
+                }
+            }
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Navbar scroll effect
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                scrollReveal();
+            });
+
+            // Add scroll reveal class to sections
+            document.addEventListener('DOMContentLoaded', function() {
+                const sections = document.querySelectorAll('section, .terminal-window, .hobby-card, .info-terminal');
+                sections.forEach(section => {
+                    section.classList.add('scroll-reveal');
+                });
+            });
+
+            // Enhanced typing effect for command lines
+            function enhancedTypeWriter(element, text, speed = 50) {
+                let i = 0;
+                element.innerHTML = '';
+
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        playTypingSound();
+                        i++;
+                        setTimeout(type, speed + Math.random() * 30);
+                    }
+                }
+                type();
+            }
+
+            // Initialize enhanced effects when content loads
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    // Auto-type command lines
+                    const commands = document.querySelectorAll('.typing-effect');
+                    commands.forEach((cmd, index) => {
+                        setTimeout(() => {
+                            const text = cmd.textContent;
+                            enhancedTypeWriter(cmd, text);
+                        }, index * 2000);
+                    });
+                }, 5000);
+            });
+        </script>
+    </div>
+    <!-- End main-content -->
+
+    <script>
+        // Password System
+        const PASSWORD = 'leohieu2810'; // Đổi mật khẩu tại đây
+        const passwordModal = document.getElementById('password-modal');
+        const mainContent = document.getElementById('main-content');
+        const passwordInput = document.getElementById('password-input');
+        const loginBtn = document.getElementById('login-btn');
+        const errorMessage = document.getElementById('error-message');
+
+        // Kiểm tra nếu đã đăng nhập
+        function checkLogin() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                showMainContent();
+            } else {
+                showPasswordModal();
+            }
+        }
+
+        function showPasswordModal() {
+            passwordModal.style.display = 'flex';
+            mainContent.style.display = 'none';
+            passwordInput.focus();
+        }
+
+        function showMainContent() {
+            passwordModal.style.display = 'none';
+            mainContent.style.display = 'block';
+            mainContent.classList.remove('hidden');
+            // Khởi động các hiệu ứng
+            setTimeout(() => {
+                createMatrixRain();
+                createParticles();
+            }, 100);
+        }
+
+        function validatePassword() {
+            const enteredPassword = passwordInput.value;
+            if (enteredPassword === PASSWORD) {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                showMainContent();
+                errorMessage.textContent = '';
+            } else {
+                errorMessage.textContent = 'Sai mật khẩu! Vui lòng thử lại.';
+                errorMessage.style.color = '#ff4757';
+                passwordInput.value = '';
+                passwordInput.focus();
+
+                // Hiệu ứng rung
+                passwordInput.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Sự kiện
+        loginBtn.addEventListener('click', validatePassword);
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validatePassword();
+            }
+        });
+
+        // Khởi động
+        checkLogin();
+
+        // Profile image changer function
+        function changeProfileImage(imageSrc) {
+            const mainImg = document.getElementById('mainProfileImg');
+            const thumbs = document.querySelectorAll('.profile-thumb');
+
+            if (mainImg) {
+                mainImg.src = imageSrc;
+                mainImg.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    mainImg.style.transform = 'scale(1)';
+                }, 150);
+            }
+
+            // Update active thumbnail
+            thumbs.forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.onclick.toString().includes(imageSrc)) {
+                    thumb.classList.add('active');
+                }
+            });
+        }
+
+        // Make function global
+        window.changeProfileImage = changeProfileImage;
+    </script>
+</body>
+
+</html>
